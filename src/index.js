@@ -1,13 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { createGlobalStyle } from 'styled-components'
+
 import './index.css';
-import App from './App';
+import Header from './components/Header'
+import Login from './pages/Login';
 import reportWebVitals from './reportWebVitals';
+import NewPost from './pages/NewPost';
+
+const GlobalStyle = createGlobalStyle`
+body {
+  margin: 0;
+}
+`
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <GlobalStyle />
+      <Header />
+      <Switch>
+        <Route exact path='/'>
+          <Login />
+        </Route>
+        <Route path='/newpost'>
+          <NewPost />
+        </Route>
+      </Switch>
+    </Router>
   </React.StrictMode>
 );
 
