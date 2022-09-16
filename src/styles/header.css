@@ -1,0 +1,20 @@
+@import '../styles/App.css';
+
+header {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.header-logo {
+    width: 50%;
+}
+
+.top-header {
+    display: flex;
+}
+
+h1 {
+    font-size: 14px;
+    color: var(--tertiary);
+}
