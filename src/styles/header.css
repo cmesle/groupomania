@@ -3,15 +3,18 @@
 header {
     display: flex;
     flex-direction: column;
+    width: 90%;
+    margin: auto;
     background-color: white;
 }
 
 .header-logo {
-    width: 50%;
+    width: 30%;
 }
 
 .top-header {
     display: flex;
+    align-items: center;
 }
 
 h1 {

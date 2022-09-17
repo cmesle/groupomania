@@ -1,0 +1,10 @@
+label {
+    width: 50%;
+}
+
+input {
+    position: relative;
+    right: 0;
+    margin-left: 20px;
+    border-radius: 5px;
+}

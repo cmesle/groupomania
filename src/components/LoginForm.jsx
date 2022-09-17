@@ -1,5 +1,6 @@
 import LoginInput from "./LoginInput";
 import Button from './Button';
+import '../styles/form.css'
 
 function LoginForm() {
     return (

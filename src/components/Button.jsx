@@ -3,9 +3,15 @@ import colors from "../utils/style/colors"
 // const text = 'connexion'
 
 const StyledButton = styled.button`
-    border-radius: 5%;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: ${colors.secondary};
+
     &:hover {    
-        background-color: ${colors.primary}
+        color: white;
+        font-weight: bolder;
+        background-color: ${colors.primary};
     } 
 `
 

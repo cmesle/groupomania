@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import '../styles/form.css'
 
 function LoginInput(prop) {
     const [userInput, setUserInput] = useState('')
