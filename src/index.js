@@ -13,6 +13,9 @@ const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
 }
+#root {
+  flex-grow: 1;
+}
 `
 
 
