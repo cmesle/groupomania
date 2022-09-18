@@ -35,7 +35,7 @@ root.render(
           <Route path="signup" element={<Signup />} />
         </Route>
         <Route path="" element={<Header />}>
-          <Route index element={<Gallery />} />
+          <Route path='gallery' element={<Gallery />} />
           <Route path="newpost" element={<NewPost />} />
           <Route path="*" element={<NoPage />} />
         </Route>
