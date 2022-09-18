@@ -2,11 +2,11 @@ import '../../styles/App.css';
 
 function NewPost() {
     return (
-        // <React.Fragment>
-        <div className="">
-            Nouvelle publication
-        </div>
-        // </React.Fragment>
+        <>
+            <div className="">
+                Nouvelle publication
+            </div>
+        </>
     )
 }
 
