@@ -1,8 +1,23 @@
+import styled from 'styled-components'
+import Post from '../../components/Post'
+
+const StyledPostsContainer = styled.div`
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+`
 function Gallery() {
     return (
-        <div>
+        <main>
             <h1>Affichage de tous les posts</h1>
-        </div>
+            <StyledPostsContainer>
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+            </StyledPostsContainer>
+        </main>
     )
 }
 
