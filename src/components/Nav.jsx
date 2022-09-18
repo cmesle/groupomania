@@ -6,13 +6,13 @@ function Nav() {
         <nav>
             <ul>
                 <li>
-                    <Link to='../pages/NewPost'>nouvelle publication</Link>
+                    <Link to='../newpost'>nouvelle publication</Link>
                 </li>
                 <li>
-                    <Link to='../pages/MyPosts'>mes publications</Link>
+                    <Link to='../myposts'>mes publications</Link>
                 </li>
                 <li>
-                    <Link to='../pages/Login'>déconnexion</Link>
+                    <Link to='../'>déconnexion</Link>
                 </li>
             </ul>
         </nav >

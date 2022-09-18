@@ -12,7 +12,7 @@ function Login() {
       <h1>
         Connexion
       </h1>
-      <Link to='../Signup'>pas encore inscrit ? Créer votre compte</Link>
+      <Link to='/signup'>pas encore inscrit ? Créer votre compte</Link>
       <LoginForm />
     </main>
   )
