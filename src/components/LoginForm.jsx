@@ -1,15 +1,23 @@
 import { useForm } from 'react-hook-form'
-import LoginInput from "./LoginInput";
-import Button from './Button';
+import axios from 'axios';
 
+import Button from './Button';
 import '../styles/form.css'
 
+
 function LoginForm() {
+
+    const baseURL = "http://localhost:3001/api/auth/signup"
     const { register, handleSubmit } = useForm()
 
-    const onSubmit = data => {
+    const onSubmit = (data) => {
+        // e.preventDefault()
         console.log(data)
+        axios.post(baseURL, data)
+            .then((res) => console.log(res.data))
+
     }
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} >
             <label>pseudo :
@@ -24,7 +32,7 @@ function LoginForm() {
                 <input
                     type="text"
                     name='email'
-                    value={'votre email pro'}
+                    value={'votreemailpro@groupomnania.com'}
                     {...register('email')}
                 />
             </label>
@@ -32,11 +40,11 @@ function LoginForm() {
                 <input
                     type="text"
                     name='password'
-                    value={'votre mot de passe'}
+                    value={'votreMotDePasse1'}
                     {...register('password')}
                 />
             </label>
-            <Button name='créer mon compte' />
+            <Button name='créer mon compte' type='submit' />
         </form>
     )
 }
