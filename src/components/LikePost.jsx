@@ -1,6 +1,6 @@
 function LikePost() {
     return (
-        <p>👍 👎</p>
+        <p>👍</p>
     )
 }
 
