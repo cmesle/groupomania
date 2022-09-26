@@ -18,11 +18,6 @@ function NewPost() {
         headers: { 'Content-Type': 'multipart/form-data' }
     }
 
-    useEffect(() => {
-
-    })
-
-
     const onSubmit = (data) => {
 
         delete data.file
@@ -50,7 +45,6 @@ function NewPost() {
                 <div>
                     <input type="file"
                         accept="image/*"
-                        // {...register('file')}
                         onChange={(e) => {
                             const file = e.target.files[0]
                             setImage(file)
