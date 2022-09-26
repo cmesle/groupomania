@@ -12,7 +12,6 @@ function UserForm({ baseURL, buttonName, navigateTo }) {
     const { register, handleSubmit } = useForm()
 
     const onSubmit = (data) => {
-        // e.preventDefault()
         console.log(data)
         axios.post(baseURL, data)
             .then((res) => console.log(res.data))
@@ -21,15 +20,17 @@ function UserForm({ baseURL, buttonName, navigateTo }) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} >
-            <label>pseudo :
-                <input
-                    type="text"
-                    name='pseudo'
-                    value={'votre pseudo'}
-                    {...register('pseudo')}
-                />
-            </label>
-            <label>email pro :
+            {buttonName === 'créer mon compte' &&
+                <label htmlFor='pseudo'>pseudo :
+                    <input
+                        type="text"
+                        name='pseudo'
+                        value={'votre pseudo'}
+                        {...register('pseudo')}
+                    />
+                </label>
+            }
+            <label htmlFor='email professionnel'>email pro :
                 <input
                     type="text"
                     name='email'
@@ -37,7 +38,7 @@ function UserForm({ baseURL, buttonName, navigateTo }) {
                     {...register('email')}
                 />
             </label>
-            <label>mot de passe :
+            <label htmlFor='mot de passe'>mot de passe :
                 <input
                     type="text"
                     name='password'
