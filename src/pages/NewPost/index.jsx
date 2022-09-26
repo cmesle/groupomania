@@ -1,30 +1,75 @@
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+
+import Button from '../../components/Button';
 import '../../styles/App.css';
+import { useEffect } from 'react';
+
+
+const baseURL = 'http://localhost:3001/api/post'
 
 function NewPost() {
+
+    const [image, setImage] = useState()
+
+    const { register, handleSubmit } = useForm()
+    const requestOptions = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    }
+
+    useEffect(() => {
+
+    })
+
+
+    const onSubmit = (data) => {
+
+        delete data.file
+        data = { ...data, image }
+
+        console.log(data, image)
+
+        axios.post(baseURL, data, requestOptions)
+            .then((res) => console.log(res.data))
+    }
     return (
         <main>
             <div className="">
                 Nouvelle publication
             </div>
-            <form>
-                <div class="form-group">
-                    <label for="postSubject">Titre du post</label>
-                    <input type="text" class="form-control" id="postSubject" formControlName="postSubject" />
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                    <label htmlFor="postSubject">Titre du post</label>
+                    <input type="text" id="postSubject" name="postSubject" {...register('title')} />
                 </div>
-                <div class="form-group">
-                    <label for="postText">Description</label>
-                    <textarea class="form-control" id="postText" rows="5" formControlName="postText"></textarea>
+                <div>
+                    <label htmlFor="postText">Description</label>
+                    <textarea id="postText" rows="5" name="postText" {...register('text')}></textarea>
                 </div>
-                <div class="form-group">
-                    <input type="file" accept="image/*" />
-                    <button mat-raised-button color="primary" >ADD IMAGE</button>
-                    <img src="" style={{ maxHeight: '100px', display: 'block', marginTop: '10px' }} />
+                <div>
+                    <input type="file"
+                        accept="image/*"
+                        // {...register('file')}
+                        onChange={(e) => {
+                            const file = e.target.files[0]
+                            setImage(file)
+                        }}
+                    // console.log(image)
+                    // const newUrl = URL.createObjectURL(image)
+                    // {
+                    // image &&
+                    // < img src={newUrl} style={{ maxHeight: '100px', display: 'block', marginTop: '10px', border: '1px solid black' }
+                    // } alt="" />
+                    // }
+                    // }}
+                    />
                 </div>
 
-                <button>SUBMIT</button>
+                <Button name='publier' type='submit' />
             </form>
 
-        </main>
+        </main >
     )
 }
 
