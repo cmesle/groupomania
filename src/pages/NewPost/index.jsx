@@ -4,7 +4,8 @@ import axios from 'axios';
 
 import Button from '../../components/Button';
 import '../../styles/App.css';
-import { useEffect } from 'react';
+
+import { Link } from 'react-router-dom';
 
 
 const baseURL = 'http://localhost:3001/api/post'
@@ -19,15 +20,13 @@ function NewPost() {
     }
 
     const onSubmit = (data) => {
-
         delete data.file
         data = { ...data, image }
-
-        console.log(data, image)
 
         axios.post(baseURL, data, requestOptions)
             .then((res) => console.log(res.data))
     }
+
     return (
         <main>
             <div className="">
@@ -61,6 +60,9 @@ function NewPost() {
                 </div>
 
                 <Button name='publier' type='submit' />
+                <Link to='/gallery'>
+                    <Button name='annuler' type='button' />
+                </Link>
             </form>
 
         </main >
