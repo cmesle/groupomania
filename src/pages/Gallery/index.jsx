@@ -28,17 +28,18 @@ function Gallery() {
         }
         return 0
     })
-    console.log(postsList)
+
     const shortDate = postsList.creationDate
     console.log(shortDate)
     return (
         <main>
             <h1>Affichage de tous les posts</h1>
-            <StyledPostsContainer>
 
+            <StyledPostsContainer>
                 {postsList.map((post) => (
-                    < PostCard
-                        key={post.id}
+                    <PostCard
+                        key={post._id}
+                        id={post._id}
                         imageUrl={post.imageUrl}
                         title={post.title}
                         date={post.creationDate}
@@ -46,7 +47,8 @@ function Gallery() {
                     />
                 ))}
             </StyledPostsContainer>
-        </main>
+
+        </main >
     )
 }
 
