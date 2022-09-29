@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
 import colors from "../../utils/style/colors"
 import styled from "styled-components"
-// import defaultPostImg from '../../assets/defaultPostImg.jpg'
 import LikePost from "../LikePost"
+
 
 const StyledCard = styled.div`
 display: flex;
@@ -14,17 +14,8 @@ border-radius: 10px;
 
 function PostCard({ id, imageUrl, title, date, text }) {
 
-
     return (
-        // <Link to='../../pages/Post'>
-        <StyledCard
-        // onClick={() => {
-        //     setPostId({ id })
-        //     console.log(id)
-        //     navigate(navigateTo)
-        // }
-        // }
-        >
+        <StyledCard>
             <Link to={`../post/${id}`}>
                 <p>author's name</p>
                 <img src={imageUrl} alt='defaultPostImg' width='50%' />
