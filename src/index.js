@@ -6,10 +6,10 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
 
 import './index.css';
-import BeforeStarting from './components/BeforeStarting';
+import LoginLayout from './components/LoginLayout';
 import Login from './pages/Login';
 // import reportWebVitals from './reportWebVitals';
-import PostLayout from './pages/PostLayout';
+import PostLayout from './pages/PostLayout/index.jsx';
 import Gallery from './pages/Gallery'
 import NewPost from './pages/NewPost';
 import Post from './pages/Post';
@@ -30,10 +30,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <PTUContextProvider value={0}>
+      <PTUContextProvider>
         <GlobalStyle />
         <Routes>
-          <Route path="" element={<BeforeStarting />}>
+          <Route path="" element={<LoginLayout />}>
             <Route index element={<Login />} />
             <Route path="signup" element={<Signup />} />
           </Route>
