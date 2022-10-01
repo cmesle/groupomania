@@ -7,6 +7,7 @@ import '../styles/form.css'
 
 
 function UserForm({ baseURL, buttonName, navigateTo }) {
+    localStorage.setItem('PTU', '0')
     const navigate = useNavigate()
 
     const { register, handleSubmit } = useForm()

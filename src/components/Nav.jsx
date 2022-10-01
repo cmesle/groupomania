@@ -1,18 +1,29 @@
 import '../styles/nav.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+
+// import { useContext } from 'react'
+// import { PTUContext } from '../utils/context'
+
 
 function Nav() {
+
     return (
         <nav>
             <ul>
                 <li>
-                    <Link to='../newpost'>nouvelle publication</Link>
+                    <NavLink
+                        onClick={() => {
+                            localStorage.setItem('PTU', '0')
+                        }
+                        }
+                        to='../newpost' >
+                        nouvelle publication</NavLink>
                 </li>
                 <li>
-                    <Link to='../myposts'>mes publications</Link>
+                    <NavLink to='../myposts'>mes publications</NavLink>
                 </li>
                 <li>
-                    <Link to='../'>déconnexion</Link>
+                    <NavLink to='../'>déconnexion</NavLink>
                 </li>
             </ul>
         </nav >
