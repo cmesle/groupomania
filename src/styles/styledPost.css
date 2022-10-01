@@ -1,0 +1,10 @@
+@import '../styles/App.css';
+
+.styledPost {
+    display: flex;
+    flex-direction: column;
+    width: 27%;
+    padding: 10px;
+    border: 1px solid var(--tertiairy);
+    border-radius: 10px;
+}
