@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom"
-import colors from "../../utils/style/colors"
+
 import styled from "styled-components"
+
+import colors from "../../utils/style/colors"
+
 import LikePost from "../LikePost"
 
 
