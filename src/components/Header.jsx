@@ -1,4 +1,3 @@
-import { Outlet } from 'react-router-dom';
 import logo from '../assets/logo.avif';
 import '../styles/header.css'
 import Nav from "./Nav"
@@ -13,7 +12,6 @@ function Header() {
                 </div>
                 <Nav />
             </header>
-            <Outlet />
         </>
     )
 }
