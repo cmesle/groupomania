@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { FilterContext } from '../../utils/context'
 
 import styled from 'styled-components'
 import PostCard from '../../components/PostCard'
@@ -13,9 +13,15 @@ justify-content: space-between;
 function Gallery() {
 
     const [postsList, setPostsList] = useState([])
+    const { filter } = useContext(FilterContext)
+    const user = localStorage.getItem('user')
 
     useEffect(() => {
-        axios.get('http://localhost:3001/api/post')
+        const token = localStorage.getItem('token')
+        const requestOptions = {
+            headers: { 'Authorization': 'Bearer ' + token }
+        }
+        axios.get('http://localhost:3001/api/post', requestOptions)
             .then((res) => setPostsList(res.data))
     }, [])
 
@@ -29,23 +35,48 @@ function Gallery() {
         return 0
     })
 
-    const shortDate = postsList.creationDate
-    console.log(shortDate)
+    useEffect(() => {
+        filter === 'myPosts' ?
+            setPostsList(postsList.filter(function (el) {
+                return el.userId === user
+            }))
+            : setPostsList(postsList)
+    }, [filter])
+
+    /* getting the author's pseudo */
+    const [pseudo, setPseudo] = useState()
+    useEffect(() => {
+        axios.get('http://localhost:3001/api/auth/author')
+            .then(res =>
+                // console.log(res.data))
+                setPseudo(res.data.author))
+    }, [])
+    // const shortDate = postsList.creationDate
+    // console.log(shortDate)
+
     return (
         <main>
             <h1>Affichage de tous les posts</h1>
 
-            <StyledPostsContainer>
-                {postsList.map((post) => (
-                    <PostCard
-                        key={post._id}
-                        id={post._id}
-                        imageUrl={post.imageUrl}
-                        title={post.title}
-                        date={post.creationDate}
-                        text={post.text}
-                    />
-                ))}
+            <StyledPostsContainer isFilter={filter === 'allPosts'}>
+                {/*
+                mettre ici l'appel au context :
+                if (postFilter = 'myPosts') {
+                {postsList.filter.map}
+                */}
+                {
+                    postsList.map((post) => (
+                        <PostCard
+                            key={post._id}
+                            id={post._id}
+                            author={pseudo}
+                            imageUrl={post.imageUrl}
+                            title={post.title}
+                            date={post.creationDate}
+                            text={post.text}
+                        />
+                    ))
+                }
             </StyledPostsContainer>
 
         </main >

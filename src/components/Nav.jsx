@@ -1,29 +1,39 @@
-import '../styles/nav.css'
+import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { FilterContext } from '../utils/context'
 
-// import { useContext } from 'react'
-// import { PTUContext } from '../utils/context'
-
+import '../styles/nav.css'
 
 function Nav() {
+
+    const handleNewClick = () => { localStorage.setItem('PTU', '0') }
+
+    const { toggleFilter, filter } = useContext(FilterContext)
+    const handleFilterClick = () => { toggleFilter() }
+
+    const handleLogout = () => {
+        localStorage.clear()
+    }
 
     return (
         <nav>
             <ul>
                 <li>
                     <NavLink
-                        onClick={() => {
-                            localStorage.setItem('PTU', '0')
-                        }
-                        }
-                        to='../newpost' >
-                        nouvelle publication</NavLink>
+                        to='../newpost'
+                        onClick={handleNewClick}>
+                        nouvelle publication
+                    </NavLink>
                 </li>
                 <li>
-                    <NavLink to='../myposts'>mes publications</NavLink>
+                    <NavLink
+                        to='../gallery'
+                        onClick={handleFilterClick}>
+                        {filter === 'allPosts' ? 'mes publications' : 'toutes les publications'}
+                    </NavLink>
                 </li>
                 <li>
-                    <NavLink to='../'>déconnexion</NavLink>
+                    <NavLink to='../' onClick={handleLogout}>déconnexion</NavLink>
                 </li>
             </ul>
         </nav >
