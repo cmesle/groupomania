@@ -22,8 +22,14 @@ function Gallery() {
             headers: { 'Authorization': 'Bearer ' + token }
         }
         axios.get('http://localhost:3001/api/post', requestOptions)
-            .then((res) => setPostsList(res.data))
-    }, [])
+            .then((res) => {
+                filter === 'myPosts' ? (
+                    setPostsList(res.data.filter(function (el) {
+                        return el.userId === user
+                    }))
+                ) : (setPostsList(res.data))
+            })
+    }, [filter])
 
     postsList.sort((a, b) => {
         if (a.creationDate < b.creationDate) {
@@ -34,14 +40,6 @@ function Gallery() {
         }
         return 0
     })
-
-    useEffect(() => {
-        filter === 'myPosts' ?
-            setPostsList(postsList.filter(function (el) {
-                return el.userId === user
-            }))
-            : setPostsList(postsList)
-    }, [filter])
 
     /* getting the author's pseudo */
     const [usersList, setUsersList] = useState()
@@ -65,24 +63,17 @@ function Gallery() {
             <h1>Affichage de tous les posts</h1>
 
             <StyledPostsContainer isFilter={filter === 'allPosts'}>
-                {/*
-                mettre ici l'appel au context :
-                if (postFilter = 'myPosts') {
-                {postsList.filter.map}
-                */}
-                {
-                    postsList.map((post) => (
-                        <PostCard
-                            key={post._id}
-                            id={post._id}
-                            author={findingAuthor(post.userId)}
-                            imageUrl={post.imageUrl}
-                            title={post.title}
-                            date={post.creationDate}
-                            text={post.text}
-                        />
-                    ))
-                }
+                {postsList.map((post) => (
+                    <PostCard
+                        key={post._id}
+                        id={post._id}
+                        author={findingAuthor(post.userId)}
+                        imageUrl={post.imageUrl}
+                        title={post.title}
+                        date={post.creationDate}
+                        text={post.text}
+                    />
+                ))}
             </StyledPostsContainer>
 
         </main >
