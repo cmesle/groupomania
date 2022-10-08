@@ -15,17 +15,20 @@ border: 1px solid ${colors.tertiairy};
 border-radius: 10px;
 `
 
-function PostCard({ id, imageUrl, title, date, text }) {
+function PostCard({ id, imageUrl, title, date, text, author }) {
 
     return (
         <StyledCard>
             <Link to={`../post/${id}`}>
-                <p>author's name</p>
-                <img src={imageUrl} alt='defaultPostImg' width='50%' />
+                <p>{author}</p>
+                {imageUrl &&
+                    <img src={imageUrl} alt='defaultPostImg' width='50%' />}
                 <div>
                     <h2>{title}</h2>
                     <div>{date}</div>
-                    <div>{text}</div>
+                    {text &&
+                        <div>{text}</div>
+                    }
                     <LikePost />
                 </div>
             </Link>

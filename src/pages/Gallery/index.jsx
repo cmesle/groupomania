@@ -44,13 +44,19 @@ function Gallery() {
     }, [filter])
 
     /* getting the author's pseudo */
-    const [pseudo, setPseudo] = useState()
+    const [usersList, setUsersList] = useState()
+
     useEffect(() => {
-        axios.get('http://localhost:3001/api/auth/author')
+        axios.get('http://localhost:3001/api/auth/users')
             .then(res =>
-                // console.log(res.data))
-                setPseudo(res.data.author))
+                setUsersList(res.data))
     }, [])
+
+    function findingAuthor(authorId) {
+        const filteredUserList = usersList.filter(user => (user._id === authorId))
+        return (filteredUserList[0].pseudo)
+    }
+
     // const shortDate = postsList.creationDate
     // console.log(shortDate)
 
@@ -69,7 +75,7 @@ function Gallery() {
                         <PostCard
                             key={post._id}
                             id={post._id}
-                            author={pseudo}
+                            author={findingAuthor(post.userId)}
                             imageUrl={post.imageUrl}
                             title={post.title}
                             date={post.creationDate}
