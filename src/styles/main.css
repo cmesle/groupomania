@@ -6,3 +6,7 @@ main {
     padding: 100px;
     background-color: white;
 }
+
+a {
+    width: 100%;
+}

@@ -1,0 +1,58 @@
+@import '../styles/App.css';
+
+
+.postsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.styledPost {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: 10px;
+    border: 1px solid var(--tertiairy);
+    border-radius: 10px;
+}
+
+.post-card {
+    display: flex;
+    justify-content: end;
+    height: 150px;
+    overflow: hidden;
+    padding: 10px;
+    border-top: 1px solid var(--tertiairy);
+    border-bottom: 1px solid var(--tertiairy);
+    border-radius: 10px;
+}
+
+.post-card img {
+    object-fit: cover;
+    width: 140px;
+    max-height: 200px;
+}
+
+.post-content {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    margin-left: 10px;
+}
+
+.post-content p {
+    margin: 0;
+}
+
+.post-identity {
+    display: flex;
+
+}
+
+.post-date {
+    font-size: 11px;
+}
+
+.post-text {
+    margin-top: 20px;
+}

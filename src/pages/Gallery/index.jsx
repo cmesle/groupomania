@@ -2,14 +2,9 @@ import axios from 'axios'
 import { useState, useEffect, useContext } from 'react'
 import { FilterContext } from '../../utils/context'
 
-import styled from 'styled-components'
 import PostCard from '../../components/PostCard'
 
-const StyledPostsContainer = styled.div`
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-`
+
 function Gallery() {
 
     const [postsList, setPostsList] = useState([])
@@ -29,7 +24,7 @@ function Gallery() {
                     }))
                 ) : (setPostsList(res.data))
             })
-    }, [filter])
+    }, [])
 
     postsList.sort((a, b) => {
         if (a.creationDate < b.creationDate) {
@@ -55,14 +50,16 @@ function Gallery() {
         return (filteredUserList[0].pseudo)
     }
 
-    // const shortDate = postsList.creationDate
-    // console.log(shortDate)
+    // function convertingDate(date) {
+    //     const shortdate = date.toDateString()
+    //     return shortdate
+    // }
 
     return (
         <main>
             <h1>Affichage de tous les posts</h1>
 
-            <StyledPostsContainer isFilter={filter === 'allPosts'}>
+            <div className='postsContainer' isFilter={filter === 'allPosts'}>
                 {postsList.map((post) => (
                     <PostCard
                         key={post._id}
@@ -74,7 +71,7 @@ function Gallery() {
                         text={post.text}
                     />
                 ))}
-            </StyledPostsContainer>
+            </div>
 
         </main >
     )

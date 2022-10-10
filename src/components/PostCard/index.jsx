@@ -1,39 +1,36 @@
 import { Link } from "react-router-dom"
 
-import styled from "styled-components"
+import '../../styles/gallery.css'
 
 import colors from "../../utils/style/colors"
 
 import LikePost from "../LikePost"
 
 
-const StyledCard = styled.div`
-display: flex;
-width: 27%;
-padding: 10px;
-border: 1px solid ${colors.tertiairy};
-border-radius: 10px;
-`
-
 function PostCard({ id, imageUrl, title, date, text, author }) {
 
     return (
-        <StyledCard>
-            <Link to={`../post/${id}`}>
-                <p>{author}</p>
-                {imageUrl &&
-                    <img src={imageUrl} alt='defaultPostImg' width='50%' />}
-                <div>
-                    <h2>{title}</h2>
-                    <div>{date}</div>
-                    {text &&
-                        <div>{text}</div>
-                    }
-                    <LikePost />
+        <Link to={`../post/${id}`} className='post-card'>
+            {/* <div className='postCard'> */}
+            {imageUrl &&
+                <img src={imageUrl} alt='defaultPostImg' width='50%' />}
+            <div className="post-content">
+                <div className="post-identity">
+                    <div className="">
+                        <p>{author}</p>
+                        <p className="post-date">{date}</p>
+                    </div>
+                    <div>{title}</div>
                 </div>
-            </Link>
-        </StyledCard >
 
+                {text &&
+                    <div className="post-text">{text}</div>
+                }
+                <LikePost />
+
+            </div>
+            {/* </div > */}
+        </Link>
     )
 }
 
