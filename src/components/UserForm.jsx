@@ -1,5 +1,7 @@
+import { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 
 import Button from './Button';
@@ -7,17 +9,25 @@ import '../styles/form.css'
 
 
 function UserForm({ baseURL, buttonName, navigateTo }) {
-    localStorage.setItem('PTU', '0')
+
     const navigate = useNavigate()
 
     const { register, handleSubmit } = useForm()
 
+    // const [user, setUser] = useState()
     const onSubmit = (data) => {
-        console.log(data)
+
         axios.post(baseURL, data)
-            .then((res) => console.log(res.data))
+            .then(res => user(res.data.userId, res.data.token))
+
+        const user = (user, token) => {
+            localStorage.setItem('user', `${user}`)
+            localStorage.setItem('token', `${token}`)
+        }
+
         navigate(navigateTo)
     }
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} >
@@ -26,7 +36,7 @@ function UserForm({ baseURL, buttonName, navigateTo }) {
                     <input
                         type="text"
                         name='pseudo'
-                        value={'votre pseudo'}
+                        defaultValue={'votre pseudo'}
                         {...register('pseudo')}
                     />
                 </label>
@@ -35,7 +45,7 @@ function UserForm({ baseURL, buttonName, navigateTo }) {
                 <input
                     type="text"
                     name='email'
-                    value={'votreemailpro@groupomnania.com'}
+                    // defaultValue={'votreemailpro@groupomania.com'}
                     {...register('email')}
                 />
             </label>
@@ -43,7 +53,7 @@ function UserForm({ baseURL, buttonName, navigateTo }) {
                 <input
                     type="text"
                     name='password'
-                    value={'votreMotDePasse1'}
+                    // defaultValue={'votreMotDePasse1'}
                     {...register('password')}
                 />
             </label>
