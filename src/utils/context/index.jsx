@@ -18,13 +18,17 @@ export const FilterProvider = ({ children }) => {
 // export const AuthorContext = createContext()
 
 // export const AuthorProvider = ({ children }) => {
-//     const [author, setAuthor] = useState('allPosts')
-//     const toggleFilter = () => {
-//         // setAuthor(filter === 'myPosts' ? 'allPosts' : 'myPosts')
-//     }
+//     const [usersList, setUsersList] = useState()
+// useEffect(() => {
+//     axios.get('http://localhost:3001/api/auth/user')
+//         .then(res => {
+//             setUsersList(res.data)
+//         })
+//         .catch(err => console.log(err))
+// }, [])
 
 //     return (
-//         <AuthorContext.Provider value={{ author, toggleFilter }}>
+//         <AuthorContext.Provider value={{ usersList, toggleFilter }}>
 //             {children}
 //         </AuthorContext.Provider>
 //     )
