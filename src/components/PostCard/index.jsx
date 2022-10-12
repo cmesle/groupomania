@@ -7,30 +7,31 @@ import colors from "../../utils/style/colors"
 import LikePost from "../LikePost"
 
 
-function PostCard({ id, imageUrl, title, date, text, author }) {
+function PostCard({ /*id, imageUrl, title, date, text, author*/ post }) {
 
     return (
-        <Link to={`../post/${id}`} className='post-card'>
-            {/* <div className='postCard'> */}
-            {imageUrl &&
-                <img src={imageUrl} alt='defaultPostImg' width='50%' />}
-            <div className="post-content">
-                <div className="post-identity">
-                    <div className="">
-                        <p>{author}</p>
-                        <p className="post-date">{date}</p>
+        <div className='post-card'>
+            < Link to={`../post/${post._id}`} >
+
+                {post.imageUrl &&
+                    <img src={post.imageUrl} alt='defaultPostImg' width='50%' />}
+                <div className="post-content">
+                    <div className="post-identity">
+                        <div className="">
+                            {/* <p>{author}</p> */}
+                            <p className="post-date">{post.creationDate}</p>
+                        </div>
+                        <div>{post.title}</div>
                     </div>
-                    <div>{title}</div>
+
+                    {post.text &&
+                        <div className="post-text">{post.text}</div>
+                    }
+
                 </div>
-
-                {text &&
-                    <div className="post-text">{text}</div>
-                }
-                <LikePost />
-
-            </div>
-            {/* </div > */}
-        </Link>
+            </Link >
+            <LikePost post={post} />
+        </div >
     )
 }
 
