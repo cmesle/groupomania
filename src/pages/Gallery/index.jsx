@@ -4,8 +4,13 @@ import { FilterContext } from '../../utils/context'
 
 import PostCard from '../../components/PostCard'
 
+// import styled from 'styled-components'
+// const StyledPostsContainer = styled.div`
 
-function Gallery() {
+// `
+
+
+function Gallery(props) {
 
     const [postsList, setPostsList] = useState([])
     const { filter } = useContext(FilterContext)
@@ -16,6 +21,7 @@ function Gallery() {
         const requestOptions = {
             headers: { 'Authorization': 'Bearer ' + token }
         }
+
         axios.get('http://localhost:3001/api/post', requestOptions)
             .then((res) => {
                 filter === 'myPosts' ? (
@@ -24,7 +30,7 @@ function Gallery() {
                     }))
                 ) : (setPostsList(res.data))
             })
-    }, [])
+    }, [filter])
 
     postsList.sort((a, b) => {
         if (a.creationDate < b.creationDate) {
@@ -40,7 +46,7 @@ function Gallery() {
     const [usersList, setUsersList] = useState()
 
     useEffect(() => {
-        axios.get('http://localhost:3001/api/auth/users')
+        axios.get('http://localhost:3001/api/auth/user')
             .then(res =>
                 setUsersList(res.data))
     }, [])
@@ -57,21 +63,22 @@ function Gallery() {
 
     return (
         <main>
-            <h1>Affichage de tous les posts</h1>
-
-            <div className='postsContainer' isFilter={filter === 'allPosts'}>
+            {/* <StyledPostsContainer isFilter={filter === 'allPosts'}> */}
+            <div className='postsContainer'>
                 {postsList.map((post) => (
                     <PostCard
                         key={post._id}
-                        id={post._id}
-                        author={findingAuthor(post.userId)}
-                        imageUrl={post.imageUrl}
-                        title={post.title}
-                        date={post.creationDate}
-                        text={post.text}
+                        // id={post._id}
+                        // author={findingAuthor(post.userId)}
+                        // imageUrl={post.imageUrl}
+                        // title={post.title}
+                        // date={post.creationDate}
+                        // text={post.text}
+                        post={post}
                     />
                 ))}
             </div>
+            {/* </StyledPostsContainer> */}
 
         </main >
     )
