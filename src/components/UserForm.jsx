@@ -19,13 +19,13 @@ function UserForm({ baseURL, buttonName, navigateTo }) {
 
         axios.post(baseURL, data)
             .then(res => user(res.data.userId, res.data.token))
+            .then(navigate(navigateTo))
 
         const user = (user, token) => {
             localStorage.setItem('user', `${user}`)
             localStorage.setItem('token', `${token}`)
         }
 
-        navigate(navigateTo)
     }
 
 
