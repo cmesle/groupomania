@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import colors from "../utils/style/colors"
-// const text = 'connexion'
 
 const StyledButton = styled.button`
     padding: 10px;
@@ -15,8 +14,8 @@ const StyledButton = styled.button`
     } 
 `
 
-function Button(prop) {
-    return <StyledButton type={prop.type}>{prop.name}</StyledButton>
+function Button(props) {
+    return <StyledButton type={props.type} navigateTo={props.navigateTo} onClick={props.action}>{props.name}</StyledButton>
 }
 
 export default Button

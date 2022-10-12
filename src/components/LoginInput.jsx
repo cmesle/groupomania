@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import '../styles/form.css'
 
-function LoginInput(prop) {
+function LoginInput(props) {
     const [userInput, setUserInput] = useState('')
     return (
         <div>
-            <label>{prop.name} :
+            <label>{props.name} :
                 <input
                     type="text"
                     value={userInput}
