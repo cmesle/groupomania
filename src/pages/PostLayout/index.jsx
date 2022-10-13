@@ -14,6 +14,7 @@ function PostLayout() {
     useEffect(() => {
         axios.get('http://localhost:3001/api/auth/user')
             .then(res => {
+                setUsersList(res.data)
                 setUserPseudo(res.data.filter(users => users._id === userId)[0].pseudo)
             })
             .catch(err => console.log(err))
@@ -23,7 +24,7 @@ function PostLayout() {
         <>
             <Header userPseudo={userPseudo} />
             <Outlet
-            // usersList={usersList}
+                context={[usersList, setUsersList]}
             />
         </>
     )
