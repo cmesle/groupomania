@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect, useContext } from 'react'
-import { FilterContext } from '../../utils/context'
+import { FilterContext, RefreshContext } from '../../utils/context'
 
 import PostCard from '../../components/PostCard'
 
@@ -12,7 +12,10 @@ import PostCard from '../../components/PostCard'
 
 function Gallery(props) {
 
+
+
     const [postsList, setPostsList] = useState([])
+    const { refresh } = useContext(RefreshContext)
     const { filter } = useContext(FilterContext)
     const user = localStorage.getItem('user')
 
@@ -30,7 +33,7 @@ function Gallery(props) {
                     }))
                 ) : (setPostsList(res.data))
             })
-    }, [filter])
+    }, [filter, refresh])
 
     postsList.sort((a, b) => {
         if (a.creationDate < b.creationDate) {
@@ -42,19 +45,20 @@ function Gallery(props) {
         return 0
     })
 
+
     /* getting the author's pseudo */
-    const [usersList, setUsersList] = useState()
+    // const [usersList, setUsersList] = useState()
 
-    useEffect(() => {
-        axios.get('http://localhost:3001/api/auth/user')
-            .then(res =>
-                setUsersList(res.data))
-    }, [])
+    // useEffect(() => {
+    //     axios.get('http://localhost:3001/api/auth/user')
+    //         .then(res =>
+    //             setUsersList(res.data))
+    // }, [])
 
-    function findingAuthor(authorId) {
-        const filteredUserList = usersList.filter(user => (user._id === authorId))
-        return (filteredUserList[0].pseudo)
-    }
+    // function findingAuthor(authorId) {
+    //     const filteredUserList = usersList.filter(user => (user._id === authorId))
+    //     return (filteredUserList[0].pseudo)
+    // }
 
     // function convertingDate(date) {
     //     const shortdate = date.toDateString()
@@ -75,6 +79,7 @@ function Gallery(props) {
                         // date={post.creationDate}
                         // text={post.text}
                         post={post}
+                    // refresh={postsListRefresh}
                     />
                 ))}
             </div>
