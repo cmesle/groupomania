@@ -1,4 +1,4 @@
-import { useState, useEffect /*, useRef*/ } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -22,7 +22,7 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
         }
     }
 
-    const [valuesToDisplay, setValuesToDisplay] = useState({})
+    // const [valuesToDisplay, setValuesToDisplay] = useState({})
     const { register, handleSubmit, reset } = useForm({
         title: '',
         text: ''
@@ -31,14 +31,8 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
         if (PTU === '0') {
             reset({
                 title: 'now',
-                text: 'or never',
-                imgValue: 'coucou'
+                text: 'or never'
             })
-            // setValuesToDisplay({
-            //     'titleValue': 'title',
-            //     'textValue': 'text',
-            //     'imgValue': 'coucou'
-            // })
         } else {
             axios.get(baseURL + '/' + PTU, requestOptions)
                 .then((res) => {
@@ -46,40 +40,19 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
                         postId: `${res.data._id}`,
                         title: `${res.data.title}`,
                         text: `${res.data.text}`,
-                        imgValue: `${res.data.imageUrl}`
+                        image: `${res.data.imageUrl}`
                     })
-                    // setValuesToDisplay({
-                    //     'postId': res.data._id,
-                    //     'titleValue': res.data.title,
-                    //     'textValue': res.data.text,
-                    //     'imgValue': res.data.imageUrl
-                    // })
-
                 })
         }
     }, [PTU])
-
-    // const { title, setTitle } = useState()
-
-    // const handleChange = (e) => {
-    //     setTitle(e.target.value)
-
-    //     const target = e.target;
-    //     const value = target.value;
-    //     const name = target.name;
-    //     this.setState({
-    //         [name]: value
-    //     });
-    // }
 
     const [image, setImage] = useState()
 
     const navigate = useNavigate()
 
-
-
     const onSubmit = (data) => {
-        delete data.file
+        // console.log(image)
+        // delete data.file
         data = { ...data, image }
 
         if (PTU === '0') {
@@ -105,7 +78,6 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
                         type="text"
                         id="title"
                         name="title"
-                        // defaultValue={valuesToDisplay.titleValue}
                         {...register('title')} />
                 </div>
                 <div>
@@ -114,27 +86,28 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
                         id="text"
                         rows="5"
                         name="text"
-                        // defaultValue={valuesToDisplay.textValue}
                         {...register('text')}></textarea>
                 </div>
-                {(valuesToDisplay.imgValue && PTU !== '0') &&
+                {/* {(valuesToDisplay.imgValue && PTU !== '0') &&
                     <div>
                         <img src={valuesToDisplay.imgValue} alt='ah, encore un pb' />
-                    </div>}
+                    </div>} */}
                 <div>
                     <input type="file"
                         accept="image/*"
-                        onChange={(e) => {
-                            const file = e.target.files[0]
-                            setImage(file)
-                        }}
+                        onChange={e => { setImage(e.target.files[0]) }}
                     />
                 </div>
 
                 <Button name={buttonName} type='submit' />
-                <Link to={navigateTo}>
-                    <Button name='annuler' type='button' />
-                </Link>
+                <Button
+                    name='annuler'
+                    type='button'
+                    action={e => {
+                        e.preventDefault()
+                        navigate(navigateTo)
+                    }}
+                />
             </form>
         </main >
     )
