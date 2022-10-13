@@ -1,5 +1,8 @@
 import { createContext, useState } from "react";
 
+
+/*---------------------------------------------------------- FILTER CONTEXT */
+/* toggling posts display (all vs user's) */
 export const FilterContext = createContext()
 
 export const FilterProvider = ({ children }) => {
@@ -15,21 +18,34 @@ export const FilterProvider = ({ children }) => {
     )
 }
 
-// export const AuthorContext = createContext()
+/*---------------------------------------------------------- REFRESH CONTEXT */
+/* refreshing PostsList after deleting post */
+export const RefreshContext = createContext()
+export const RefreshProvider = ({ children }) => {
+    const [refresh, setRefresh] = useState(0)
+    const incrementRefresh = () => {
+        setRefresh(refresh + 1)
+    }
+    return (
+        <RefreshContext.Provider value={({ refresh, incrementRefresh })}>
+            {children}
+        </RefreshContext.Provider>
+    )
+}
 
-// export const AuthorProvider = ({ children }) => {
-//     const [usersList, setUsersList] = useState()
-// useEffect(() => {
-//     axios.get('http://localhost:3001/api/auth/user')
-//         .then(res => {
-//             setUsersList(res.data)
-//         })
-//         .catch(err => console.log(err))
-// }, [])
+/*---------------------------------------------------------- OPENPOST CONTEXT */
+/* toggling Post css  */
+export const OpenPostContext = createContext()
 
-//     return (
-//         <AuthorContext.Provider value={{ usersList, toggleFilter }}>
-//             {children}
-//         </AuthorContext.Provider>
-//     )
-// }
+export const OpenPostProvider = ({ children }) => {
+    const [openPost, setOpenPost] = useState('allPosts')
+    const toggleOpenPost = () => {
+        setOpenPost(openPost === 'open' ? 'closed' : 'open')
+    }
+
+    return (
+        <OpenPostContext.Provider value={{ openPost, toggleOpenPost }}>
+            {children}
+        </OpenPostContext.Provider>
+    )
+}
