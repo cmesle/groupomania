@@ -23,29 +23,12 @@ export const FilterProvider = ({ children }) => {
 export const RefreshContext = createContext()
 export const RefreshProvider = ({ children }) => {
     const [refresh, setRefresh] = useState(0)
-    const incrementRefresh = () => {
-        setRefresh(refresh + 1)
+    const toggleRefresh = () => {
+        setRefresh(refresh === 0 ? 1 : 0)
     }
     return (
-        <RefreshContext.Provider value={({ refresh, incrementRefresh })}>
+        <RefreshContext.Provider value={({ refresh, toggleRefresh })}>
             {children}
         </RefreshContext.Provider>
-    )
-}
-
-/*---------------------------------------------------------- OPENPOST CONTEXT */
-/* toggling Post css  */
-export const OpenPostContext = createContext()
-
-export const OpenPostProvider = ({ children }) => {
-    const [openPost, setOpenPost] = useState('allPosts')
-    const toggleOpenPost = () => {
-        setOpenPost(openPost === 'open' ? 'closed' : 'open')
-    }
-
-    return (
-        <OpenPostContext.Provider value={{ openPost, toggleOpenPost }}>
-            {children}
-        </OpenPostContext.Provider>
     )
 }
