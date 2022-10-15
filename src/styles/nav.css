@@ -1,15 +1,30 @@
 nav {
     position: relative;
-    width: 100%;
-    right: 10px;
+    width: 70%;
+    margin: auto;
+    font-size: smaller;
 }
 
 nav>ul {
     display: flex;
     justify-content: space-between;
+    padding-left: 0;
 }
 
 nav ul li {
     list-style-type: none;
     text-decoration: none;
+}
+
+nav ul li a {
+    display: flex;
+    align-items: center;
+}
+
+nav ul li span {
+    margin-left: -10px;
+}
+
+nav ul li img {
+    height: 30px;
 }

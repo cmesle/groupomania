@@ -4,7 +4,7 @@ import colors from "../utils/style/colors"
 const StyledButton = styled.button`
     padding: 10px;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: ${colors.secondary};
 
     &:hover {    

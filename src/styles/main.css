@@ -1,6 +1,6 @@
 main {
     flex-grow: 1;
-    /* width: 90%; */
+    width: 90%;
     max-width: 1200px;
     margin: auto;
     padding: 50px 100px;

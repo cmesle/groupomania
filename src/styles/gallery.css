@@ -17,46 +17,89 @@
     border-radius: 10px;
 }
 
-.post-card {
+.post-card,
+.post-card--open {
+    --image-width: 140px;
+
     position: relative;
     display: flex;
-    justify-content: end;
-    height: 150px;
+    min-height: 150px;
     overflow: hidden;
+    margin-bottom: -1px;
     padding: 10px;
     border-top: 1px solid var(--tertiairy);
     border-bottom: 1px solid var(--tertiairy);
     border-radius: 10px;
 }
 
-.post-card img {
+.post-card--open {
+    --open-image-width: 300px;
+}
+
+.post-card--clickable {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    cursor: pointer;
+}
+
+.post-card img,
+.post-card--open img {
     object-fit: cover;
-    width: 140px;
+    width: var(--image-width);
     max-height: 200px;
 }
 
+.post-card--open img {
+
+    width: var(--open-image-width);
+    max-height: 400px;
+}
+
 .post-content {
+    position: relative;
     display: flex;
     flex-direction: column;
-    width: 85%;
+    flex-shrink: 0;
+    width: calc(100% - var(--image-width));
     margin-left: 10px;
 }
 
-.post-content p {
+.post-content--open {
+    width: calc(100% - var(--open-image-width));
+}
+
+
+.post-content p,
+.post-content--open p {
     margin: 0;
 }
 
 .post-identity {
     display: flex;
-
+    justify-content: space-between;
+    font-weight: bold;
 }
 
 .post-date {
     font-size: 11px;
+    font-weight: normal;
 }
 
-.post-text {
-    margin-top: 20px;
+.post-text,
+.post-text--open {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 97%;
+    margin-top: 15px;
+    border-top: 1px solid var(--secondary)
+}
+
+.post-text--open {
+    overflow: unset;
+    white-space: unset;
+    text-overflow: unset;
 }
 
 .post-rate {
@@ -64,4 +107,12 @@
     bottom: 5px;
     right: 5px;
     right: 5px;
+    cursor: pointer;
+}
+
+.post-button button {
+    padding: 5px 10px;
+    background-color: unset;
+    font-size: 10px;
+    font-weight: bold;
 }
