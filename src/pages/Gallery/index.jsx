@@ -10,7 +10,7 @@ import PostCard from '../../components/PostCard'
 // `
 
 
-function Gallery(props) {
+function Gallery() {
 
 
 
@@ -45,47 +45,25 @@ function Gallery(props) {
         return 0
     })
 
-
-    /* getting the author's pseudo */
-    // const [usersList, setUsersList] = useState()
-
-    // useEffect(() => {
-    //     axios.get('http://localhost:3001/api/auth/user')
-    //         .then(res =>
-    //             setUsersList(res.data))
-    // }, [])
-
-    // function findingAuthor(authorId) {
-    //     const filteredUserList = usersList.filter(user => (user._id === authorId))
-    //     return (filteredUserList[0].pseudo)
-    // }
-
     // function convertingDate(date) {
     //     const shortdate = date.toDateString()
     //     return shortdate
     // }
 
     return (
+
+
         <main>
-            {/* <StyledPostsContainer isFilter={filter === 'allPosts'}> */}
             <div className='postsContainer'>
                 {postsList.map((post) => (
                     <PostCard
                         key={post._id}
-                        // id={post._id}
-                        // author={findingAuthor(post.userId)}
-                        // imageUrl={post.imageUrl}
-                        // title={post.title}
-                        // date={post.creationDate}
-                        // text={post.text}
                         post={post}
-                    // refresh={postsListRefresh}
                     />
                 ))}
             </div>
-            {/* </StyledPostsContainer> */}
-
         </main >
+
     )
 }
 
