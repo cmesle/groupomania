@@ -1,69 +1,70 @@
 import React from 'react'
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
-// class LikePost extends React.Component {
-//     constructor(props) {
-//         super(props)
-//         this.state = { like: '' }
-//     }
 
-//     componentDidMount() {
-
-//     }
-//     componentWillUnmount() {
-
-//     }
-
-//     render() {
-//         return (
-//             <p className='post-rate'
-//                 onClick={ratePost}
-//             >👍<span>
-//                     {postLikes}
-//                 </span></p >
-//         )
-//     }
-// }
 function LikePost({ post }) {
     const user = localStorage.getItem('user')
-    const [postLikes, setPostLikes] = useState()
-    const [like, setLike] = useState()
+    const [postLikes, setPostLikes] = useState(post.likes)
     const baseURL = `http://localhost:3001/api/post/${post._id}`
     const token = localStorage.getItem('token')
     const requestOptions = {
-        headers: { 'Authorization': 'Bearer ' + token }
+        headers: { 'Authorization': 'Bearer ' + token, 'Cache-Control': 'no-cache' }
     }
+    const [alreadyLiked, setAlreadyLiked] = useState(((post.usersLiked).findIndex(userId => userId === user)))
 
-    // const [alreadyLiked, setAlreadyLiked] = useState()
-    console.log(post)
-    console.log('post.usersLiked', post.usersLiked)
-    const alreadyLiked = ((post.usersLiked).findIndex(userId => userId === user))
-
-    const ratePost = () => {
+    async function ratePost() {
         const requestData = {
             'userId': user,
-            'like': like
+            'like': ''
+        }
+        if (alreadyLiked === -1) {
+            requestData.like = "1"
+        } else {
+            requestData.like = "0"
         }
 
-        if (alreadyLiked === -1) {
-            setLike("1")
-            requestData.like = like
-        } else if (alreadyLiked === 0) {
-            setLike("0")
-            requestData.like = like
-        } else { console.log('error in rating') }
+        await axios.post(baseURL + `/like`, requestData, requestOptions)
 
-
-        axios.post(baseURL + `/like`, requestData, requestOptions)
-            .then(res => console.log(res.data))
+        axios.get(baseURL, requestOptions)
+            .then(res => {
+                setPostLikes(res.data.likes)
+                setAlreadyLiked(((res.data.usersLiked).findIndex(userId => userId === user)))
+            })
     }
+
+    // const ratePost = () => {
+    //     const requestData = {
+    //         'userId': user,
+    //         'like': ''
+    //     }
+
+    //     if (alreadyLiked === -1) {
+    //         requestData.like = "1"
+    //     } else {
+    //         requestData.like = "0"
+    //     }
+
+    //     axios.post(baseURL + `/like`, requestData, requestOptions)
+    //         .then(
+    //             axios.get(baseURL, requestOptions)
+    //                 .then(res => {
+    //                     setPostLikes(res.data.likes)
+    //                     console.log('posLikes', postLikes)
+    //                     setAlreadyLiked(((res.data.usersLiked).findIndex(userId => userId === user)))
+    //                     console.log('alreadyLiked', alreadyLiked)
+    //                 })
+    //         )
+
+    //     setRateTrigger(rateTrigger === 'off' ? 'on' : 'off')
+
+    // }
 
     return (
         <p className='post-rate'
             onClick={ratePost}
         >👍<span>
-                {post.likes}
+                {postLikes}
             </span></p >
     )
 }
