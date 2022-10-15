@@ -10,12 +10,14 @@ function PostLayout() {
     /* getting the user's pseudo */
     const [usersList, setUsersList] = useState()
     const [userPseudo, setUserPseudo] = useState()
+    const [userRole, setUserRole] = useState()
 
     useEffect(() => {
         axios.get('http://localhost:3001/api/auth/user')
             .then(res => {
                 setUsersList(res.data)
                 setUserPseudo(res.data.filter(users => users._id === userId)[0].pseudo)
+                setUserRole(res.data.filter(users => users._id === userId)[0].role)
             })
             .catch(err => console.log(err))
     }, [])
@@ -23,9 +25,7 @@ function PostLayout() {
     return (
         <>
             <Header userPseudo={userPseudo} />
-            <Outlet
-                context={[usersList, setUsersList]}
-            />
+            <Outlet context={[usersList, setUsersList, userRole, setUserRole]} />
         </>
     )
 
