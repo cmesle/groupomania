@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
-import { FilterProvider, RefreshProvider, OpenPostProvider } from './utils/context';
+import { FilterProvider, RefreshProvider } from './utils/context';
 
 import './index.css';
 import App from './App'
@@ -23,12 +23,10 @@ root.render(
   <React.StrictMode>
     <RefreshProvider>
       <FilterProvider>
-        <OpenPostProvider>
-          <BrowserRouter>
-            < GlobalStyle />
-            <App />
-          </BrowserRouter>
-        </OpenPostProvider>
+        <BrowserRouter>
+          < GlobalStyle />
+          <App />
+        </BrowserRouter>
       </FilterProvider>
     </RefreshProvider>
   </React.StrictMode >
