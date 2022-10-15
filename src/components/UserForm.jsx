@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
 import axios from 'axios';
@@ -15,18 +15,33 @@ function UserForm({ baseURL, buttonName, navigateTo }) {
     const { register, handleSubmit } = useForm()
 
     // const [user, setUser] = useState()
-    const onSubmit = (data) => {
 
-        axios.post(baseURL, data)
-            .then(res => user(res.data.userId, res.data.token))
-            .then(navigate(navigateTo))
+    async function onSubmit(data) {
 
         const user = (user, token) => {
             localStorage.setItem('user', `${user}`)
             localStorage.setItem('token', `${token}`)
         }
+        await axios.post(baseURL, data)
+            .then(res => user(res.data.userId, res.data.token))
+
+        navigate(navigateTo)
+
 
     }
+
+    // const onSubmit = (data) => {
+
+    //     const user = (user, token) => {
+    //         localStorage.setItem('user', `${user}`)
+    //         localStorage.setItem('token', `${token}`)
+    //     }
+    //     axios.post(baseURL, data)
+    //         .then(res => user(res.data.userId, res.data.token))
+    //         .then(navigate(navigateTo))
+
+
+    // }
 
 
     return (
