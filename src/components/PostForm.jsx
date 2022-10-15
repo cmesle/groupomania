@@ -1,28 +1,27 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 import Button from '../components/Button';
 import '../styles/App.css';
+import { RefreshContext } from '../utils/context';
 
 
-function PostForm({ titleToDisplay, buttonName, navigateTo }) {
+function PostForm({ titleToDisplay, imageInputName, buttonName, navigateTo }) {
 
     const PTU = localStorage.getItem('PTU')
     const token = localStorage.getItem('token')
-
+    const { toggleRefresh } = useContext(RefreshContext)
+    const [imageUrl, setImageUrl] = useState()
     const baseURL = 'http://localhost:3001/api/post'
     const requestOptions = {
         headers: {
-            'Content-Type':
-                // 'text/html; charset=utf-8',
-                'multipart/form-data',
+            'Content-Type': 'multipart/form-data',
             'Authorization': 'Bearer ' + token
         }
     }
 
-    // const [valuesToDisplay, setValuesToDisplay] = useState({})
     const { register, handleSubmit, reset } = useForm({
         title: '',
         text: ''
@@ -30,31 +29,60 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
     useEffect(() => {
         if (PTU === '0') {
             reset({
-                title: 'now',
-                text: 'or never'
+                title: '',
+                text: ''
             })
         } else {
             axios.get(baseURL + '/' + PTU, requestOptions)
                 .then((res) => {
-                    reset({
-                        postId: `${res.data._id}`,
-                        title: `${res.data.title}`,
-                        text: `${res.data.text}`,
-                        image: `${res.data.imageUrl}`
-                    })
+                    if (!res.data.imageUrl) {
+                        reset({
+                            postId: `${res.data._id}`,
+                            title: `${res.data.title}`,
+                            text: `${res.data.text}`,
+                        })
+                    } else {
+                        reset({
+                            postId: `${res.data._id}`,
+                            title: `${res.data.title}`,
+                            text: `${res.data.text}`,
+                            imageUrl: `${res.data.imageUrl}`
+                        })
+                    }
+                    setImageUrl()
                 })
         }
     }, [PTU])
 
+    /*----------------------------------------------------------------------- IMAGE UPLOAD */
     const [image, setImage] = useState()
+    const [imageName, setImageName] = useState()
+    const [imageURI, setImageURI] = useState()
+
+    const readURI = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function (ev) {
+                setImageURI(ev.target.result)
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    }
+
+    const handleImageChange = (e) => {
+        readURI(e)
+        setImage(e.target.files[0])
+        setImageUrl(image)
+        setImageName(e.target.files[0].name)
+    }
+
+
 
     const navigate = useNavigate()
 
     const onSubmit = (data) => {
-        // console.log(image)
-        // delete data.file
-        data = { ...data, image }
 
+        data = { ...data, image }
         if (PTU === '0') {
             axios.post(baseURL, data, requestOptions)
                 .then((res) => console.log(res.data))
@@ -62,52 +90,67 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
             axios.put(baseURL + '/' + PTU, data, requestOptions)
                 .then((res) => console.log(res.data))
         }
+        toggleRefresh()
         navigate(navigateTo)
     }
 
 
     return (
         <main>
-            <div className="">
+            <div className="postForm-titre">
                 {titleToDisplay}
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label htmlFor="title">Titre du post</label>
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        {...register('title')} />
+                <div className='postForm-content'>
+                    <div className='postForm-content-inputs'>
+                        <label htmlFor="title">titre</label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            {...register('title')} />
+
+                    </div>
+                    <div className='postForm-content-inputs'>
+                        <label htmlFor="text">votre publication</label>
+                        <textarea
+                            id="text"
+                            rows="20"
+                            cols="40"
+                            name="text"
+                            {...register('text')}></textarea>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="text">Description</label>
-                    <textarea
-                        id="text"
-                        rows="5"
-                        name="text"
-                        {...register('text')}></textarea>
-                </div>
-                {/* {(valuesToDisplay.imgValue && PTU !== '0') &&
-                    <div>
-                        <img src={valuesToDisplay.imgValue} alt='ah, encore un pb' />
-                    </div>} */}
-                <div>
-                    <input type="file"
-                        accept="image/*"
-                        onChange={e => { setImage(e.target.files[0]) }}
-                    />
+                <div className='postForm-image'>
+                    {(imageUrl && PTU !== '0') &&
+                        <div>
+                            <img src={imageUrl ? imageUrl : imageURI} alt='ah, encore un pb' />
+                        </div>
+                    }
+                    <div className='postForm-image-button'>
+                        <label htmlFor='choose-image' className='button'>{imageInputName}</label>
+                        <input
+                            id='choose-image'
+                            style={{ display: 'none' }}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                        />
+                        <div id='image-name'>{imageName}</div>
+                    </div>
                 </div>
 
-                <Button name={buttonName} type='submit' />
-                <Button
-                    name='annuler'
-                    type='button'
-                    action={e => {
-                        e.preventDefault()
-                        navigate(navigateTo)
-                    }}
-                />
+                <div className='postForm-buttons'>
+                    <Button name={buttonName} type='submit' />
+                    <Button
+                        name='annuler'
+                        type='button'
+                        action={(e) => {
+                            e.preventDefault()
+                            navigate(navigateTo)
+                        }}
+                    />
+                </div>
             </form>
         </main >
     )
