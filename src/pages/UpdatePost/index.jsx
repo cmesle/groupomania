@@ -21,9 +21,13 @@ function UpdatePost() {
 
     useEffect(() => {
         axios.get(baseURL + '/' + PTU, requestOptions)
-            .then(res => console.log(res.data))
+        // .then(res => console.log(res.data))
     }, [])
-    return <PostForm titleToDisplay='Modifier la publication' buttonName='enregistrer' />
+    return <PostForm
+        titleToDisplay='Modifier votre publication'
+        imageInputName='modifier limage'
+        buttonName='enregistrer'
+        navigateTo={'../../gallery'} />
 }
 
 export default UpdatePost
