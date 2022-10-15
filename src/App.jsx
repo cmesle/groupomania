@@ -3,23 +3,26 @@ import { Routes, Route } from 'react-router-dom'
 
 import './index.css';
 /* login components */
-import LoginLayout from './components/LoginLayout';
+import LoginLayout from './pages/LoginLayout';
+import Signup from './pages/Signup';
 import Login from './pages/Login';
 /* posts components */
-import PostLayout from './pages/PostLayout/index.jsx';
+import PostLayout from './pages/PostLayout';
 import Gallery from './pages/Gallery'
 import NewPost from './pages/NewPost';
 import UpdatePost from './pages/UpdatePost';
 import Post from './pages/Post';
-import Signup from './pages/Signup';
+
 import NoPage from './pages/NoPage';
 import PrivateRoutes from './components/PrivateRoutes';
 
 
 
 function App() {
+
   return (
     < Routes >
+
       <Route path="" element={<LoginLayout />}>
         <Route index element={<Login />} />
         <Route path="signup" element={<Signup />} />
