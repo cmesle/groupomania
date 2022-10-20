@@ -1,21 +1,28 @@
 import styled from "styled-components"
-import colors from "../utils/style/colors"
+import '../styles/App.css'
 
 const StyledButton = styled.button`
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
     border: none;
-    border-radius: 10px;
-    background-color: ${colors.secondary};
+    border-radius: 5px;
+    background-color: var(--secondary);
+    color: var(--tertiary);
 
     &:hover {    
         color: white;
         font-weight: bolder;
-        background-color: ${colors.primary};
+        background-color: var(--primary);
     } 
 `
 
 function Button(props) {
-    return <StyledButton type={props.type} navigateTo={props.navigateTo} onClick={props.action}>{props.name}</StyledButton>
+    return <StyledButton type={props.type} navigateTo={props.navigateTo} onClick={props.action}>
+        <img src={props.icon} alt='' />
+        <span>{props.name}</span>
+    </StyledButton>
 }
 
 export default Button
