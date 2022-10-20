@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import { useOutletContext } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
@@ -6,9 +6,11 @@ import axios from "axios"
 import Button from "../Button"
 import LikePost from "../LikePost"
 
-import '../../styles/gallery.css'
 import { RefreshContext } from '../../utils/context'
-import { useState } from 'react'
+import '../../styles/gallery.css'
+
+import iconPostModif from '../../assets/icon-post-modif.avif'
+import iconPostDelete from '../../assets/icon-post-del.avif'
 
 function PostCard({ post }) {
 
@@ -16,10 +18,12 @@ function PostCard({ post }) {
     const [usersList] = useOutletContext()
     const userRole = useOutletContext()[2]
 
-    const author = usersList.filter(user => (user._id === post.userId))[0].pseudo
+    console.log(usersList)
+    console.log(usersList.filter(user => (user._id === post.userId))[0].pseudo)
+    // const author = usersList.filter(user => (user._id === post.userId))[0].pseudo
 
-    const preDate = post.creationDate
-    const date = preDate.substring(0, 10)
+    const postCreationDate = new Date(post.creationDate)
+        .toLocaleDateString('fr-FR')
 
     const handleOpenPost = () => {
         openPost === 'closed' ? setOpenPost('open') : setOpenPost('closed')
@@ -47,46 +51,36 @@ function PostCard({ post }) {
         navigate(navigateTo)
     }
 
-    // const closePost = (e) => {
-    //     e.preventDefault()
-    //     navigate(navigateTo)
-    // }
-
     const modifyPost = (e) => {
         e.preventDefault()
         localStorage.setItem('PTU', post._id)
-        navigate('../updatepost')
+        navigate(`../updatepost/${post._id}`)
     }
 
     return (
         <div className={openPost === 'closed' ? 'post-card' : 'post-card--open'}>
-            <div className='post-card--clickable' onClick={handleOpenPost}>
+            <div
+                className={openPost === 'closed' ? 'post-card__clickable' : 'post-card__clickable--open'}
+                onClick={handleOpenPost}>
 
                 {post.imageUrl &&
-                    <img src={post.imageUrl} alt='defaultPostImg' width='100%' />}
-                <div className={openPost === 'closed' ? 'post-content' : 'post-content--open'}>
-                    <div className="post-identity">
-                        <div className="">
-                            <p>{author}</p>
-                            <p className="post-date">{date/*post.creationDate*/}</p>
+                    <img className="post-card__img" src={post.imageUrl} alt='defaultPostImg' width='100%' />}
+                <div className={(openPost === 'open') && post.imageUrl ? 'post-content--open' : ((openPost === 'open') && !post.imageUrl) ? 'post-content' : 'post-content'}>
+                    <div className='post__header'>
+                        <div className="post__identity">
+                            <div className="post__identity__who-when">
+                                {/* <p>{author}</p> */}
+                                <p className="post__identity__date">le {postCreationDate}</p>
+                            </div>
+                            <div className='post__post__title'>{post.title}</div>
                         </div>
-                        <div>{post.title}</div>
-                        <div className='post-button'>
-                            {/* {openPost === 'open' &&
-                    <Button type='button' name='fermer' action={closePost}
-                    />
-                } */}
-
-                            {/* <div> */}
-                            {(userRole !== 'admin' && userId === post.userId) && (
-                                <Button type='button' name='modifier' action={modifyPost} />)}
+                        <div className='post__button'>
                             {(userRole === 'admin' || userId === post.userId) && (
-                                <Button
-                                    type='button'
-                                    name='supprimer'
-                                    action={deletePost} />
+                                <>
+                                    <Button type='button' icon={iconPostModif} name='modifier' action={modifyPost} />
+                                    <Button type='button' icon={iconPostDelete} name='supprimer' action={deletePost} />
+                                </>
                             )}
-                            {/* </div> */}
                         </div>
                     </div>
 

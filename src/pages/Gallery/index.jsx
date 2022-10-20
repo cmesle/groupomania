@@ -4,15 +4,8 @@ import { FilterContext, RefreshContext } from '../../utils/context'
 
 import PostCard from '../../components/PostCard'
 
-// import styled from 'styled-components'
-// const StyledPostsContainer = styled.div`
-
-// `
-
 
 function Gallery() {
-
-
 
     const [postsList, setPostsList] = useState([])
     const { refresh } = useContext(RefreshContext)
@@ -45,10 +38,6 @@ function Gallery() {
         return 0
     })
 
-    // function convertingDate(date) {
-    //     const shortdate = date.toDateString()
-    //     return shortdate
-    // }
 
     return (
 

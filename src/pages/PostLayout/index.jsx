@@ -4,6 +4,9 @@ import axios from 'axios';
 import Header from "../../components/Header";
 import React from "react";
 
+import '../../styles/header.css'
+import styles from '../../styles/PostLayout.module.css'
+
 function PostLayout() {
     localStorage.setItem('PTU', '0')
     const userId = localStorage.getItem('user')

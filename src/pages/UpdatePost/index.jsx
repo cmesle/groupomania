@@ -25,7 +25,7 @@ function UpdatePost() {
     }, [])
     return <PostForm
         titleToDisplay='Modifier votre publication'
-        imageInputName='modifier limage'
+        imageInputName="modifier l'image"
         buttonName='enregistrer'
         navigateTo={'../../gallery'} />
 }

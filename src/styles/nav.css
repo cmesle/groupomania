@@ -27,4 +27,47 @@ nav ul li span {
 
 nav ul li img {
     height: 30px;
+    object-fit: unset;
+    object-position: unset;
+}
+
+@media screen and (max-width:1024px) {
+    nav {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 0 50px;
+        background-color: var(--tertiary);
+        border-top: 1px solid var(--tertiary);
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        font-size: x-small;
+    }
+
+    nav>ul {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 0;
+    }
+
+    nav ul li {
+        list-style-type: none;
+        text-decoration: none;
+    }
+
+    nav ul li a {
+        display: flex;
+        align-items: center;
+    }
+
+    nav ul li span {
+        display: none;
+        margin-left: -10px;
+    }
+
+    /* nav ul li img {
+        height: 20px;
+    } */
 }

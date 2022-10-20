@@ -6,12 +6,12 @@ import LikePost from "../../components/LikePost"
 import Button from "../../components/Button"
 import "../../styles/gallery.css"
 
-
-function Post(/*imageUrl, title, date, text*/) {
+function Post() {
 
     const postId = useParams()
-    const baseURL = `http://localhost:3001/api/post/${postId.id}`
 
+    const baseURL = `http://localhost:3001/api/post/${postId.id}`
+    console.log(baseURL)
     const token = localStorage.getItem('token')
     const requestOptions = {
         headers: { 'Authorization': 'Bearer ' + token }
@@ -26,71 +26,17 @@ function Post(/*imageUrl, title, date, text*/) {
     const [usersList, setUsersList] = useState([])
     const [author, setAuthor] = useState({})
 
-
-    // function findingAuthor(authorId) {
-
-    //     const filteredUserList = usersList.filter(user => (user._id === authorId))
-    //     return (
-    //         // console.log(
-    //         filteredUserList[0].pseudo
-    //     )
-    //     // )
-    // }
-
     useEffect(() => {
         axios.get(baseURL, requestOptions)
             .then((res) => setPost(res.data))
     }, [])
-    const authorId = post.userId
-    // console.log(authorId)
-    useEffect(() => {
-        console.log(authorId)
-        axios.get('http://localhost:3001/api/auth/users')
-            .then(res => (res.data))
-            .then(array => (array.filter(user => user._id === authorId)))
-            .then(array => setAuthor(array[0]))
-            // .then(object => (object.pseudo))
-            .then(thing => console.log(thing))
-            .catch(console.error)
-    }, [authorId])
-    console.log(author)
-    // const filteredUsersList = usersList.filter(user => (user._id === post.userId))
-    // console.log(filteredUsersList[0])
-    // const userObject = filteredUsersList[0]
-    // console.log('userObject : ' + userObject)
-    // const pseudo = filteredUsersList[0].pseudo
-    // console.log(pseudo)
 
-    // console.log(post)
-
-    /* getting the author's pseudo */
-
-    // const [usersList, setUsersList] = useState([])
-
-    // useEffect(() => {
-    //     axios.get('http://localhost:3001/api/auth/users')
-    //         .then(res => { setUsersList(res.data) })
-    //         .then(() => usersList.filter(user => (user._id === post.userId)))
-    //         .catch(console.error)
-    // }, [])
-    // console.log(filteredUserList)
-
-
-    // function findingAuthor(authorId) {
-
-    //     const filteredUserList = usersList.filter(user => (user._id === authorId))
-    //     return (
-    //         // console.log(
-    //         filteredUserList[0].pseudo
-    //     )
-    //     // )
-    // }
-    // findingAuthor("63388514ea36a0e4c8ded604")
 
     /* deleting Post */
 
     const navigate = useNavigate()
     const navigateTo = '../gallery'
+
     const deletePost = (e) => {
         e.preventDefault()
 
@@ -98,6 +44,16 @@ function Post(/*imageUrl, title, date, text*/) {
             .then(res => console.log(res))
 
         navigate(navigateTo)
+    }
+
+    const closePost = (e) => {
+        e.preventDefault()
+        navigate(navigateTo)
+    }
+
+    const modifyPost = (e) => {
+        e.preventDefault()
+        navigate('../updatepost')
     }
 
     return (
@@ -123,29 +79,17 @@ function Post(/*imageUrl, title, date, text*/) {
                         <img src={post.imageUrl} alt='defaultPostImg' width='50%' />
                     }
 
-                    <LikePost />
-                    <Button type='button' name='fermer' navigateTo={navigateTo}
-                    // onClick={(e) => {
-                    //     e.preventDefault()
-                    //     navigate(navigateTo)
-                    // }
-                    // }
+                    {/* <LikePost postId={post._id} /> */}
+                    <Button type='button' name='fermer' action={closePost}
                     />
                     {userId === post.userId && (
                         <div>
-                            <Link to='../updatepost'>
-                                <Button name='modifier' />
-                            </Link>
-                            <Link onClick={deletePost}>
-                                <Button
-                                    type='button'
-                                    name='supprimer'
-                                // onClick={
-                                // console.log('clicked')
-                                // deletePost
-                                // }
-                                />
-                            </Link>
+                            <Button type='button' name='modifier' action={modifyPost} />
+                            <Button
+                                type='button'
+                                name='supprimer'
+                                action={deletePost} />
+
                         </div>
                     )}
                 </div>

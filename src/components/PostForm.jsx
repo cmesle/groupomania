@@ -5,6 +5,8 @@ import axios from 'axios';
 
 import Button from '../components/Button';
 import '../styles/App.css';
+import '../styles/postForm.css'
+// import styles from '../styles/PostForm.module.css';
 import { RefreshContext } from '../utils/context';
 
 
@@ -37,19 +39,20 @@ function PostForm({ titleToDisplay, imageInputName, buttonName, navigateTo }) {
                 .then((res) => {
                     if (!res.data.imageUrl) {
                         reset({
-                            postId: `${res.data._id}`,
+                            // postId: `${res.data._id}`,
                             title: `${res.data.title}`,
                             text: `${res.data.text}`,
                         })
                     } else {
                         reset({
-                            postId: `${res.data._id}`,
+                            // postId: `${res.data._id}`,
                             title: `${res.data.title}`,
                             text: `${res.data.text}`,
                             imageUrl: `${res.data.imageUrl}`
                         })
+                        setImageUrl(res.data.imageUrl)
                     }
-                    setImageUrl()
+
                 })
         }
     }, [PTU])
@@ -65,29 +68,35 @@ function PostForm({ titleToDisplay, imageInputName, buttonName, navigateTo }) {
             reader.onload = function (ev) {
                 setImageURI(ev.target.result)
             }
-            reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(e.target.files[0])
+            console.log(imageURI)
         }
     }
 
     const handleImageChange = (e) => {
         readURI(e)
+
         setImage(e.target.files[0])
-        setImageUrl(image)
+        setImageUrl(/*e.target.files[0]*/image)
         setImageName(e.target.files[0].name)
     }
 
 
 
+
     const navigate = useNavigate()
 
-    const onSubmit = (data) => {
+    async function onSubmit(data) {
+        console.log('imgURI', imageURI)
+        console.log('image', image)
+        console.log('imgUrl', imageUrl)
 
         data = { ...data, image }
         if (PTU === '0') {
-            axios.post(baseURL, data, requestOptions)
+            await axios.post(baseURL, data, requestOptions)
                 .then((res) => console.log(res.data))
         } else {
-            axios.put(baseURL + '/' + PTU, data, requestOptions)
+            await axios.put(baseURL + '/' + PTU, data, requestOptions)
                 .then((res) => console.log(res.data))
         }
         toggleRefresh()
@@ -97,9 +106,9 @@ function PostForm({ titleToDisplay, imageInputName, buttonName, navigateTo }) {
 
     return (
         <main>
-            <div className="postForm-titre">
+            <h1 className="postForm-titre">
                 {titleToDisplay}
-            </div>
+            </h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='postForm-content'>
                     <div className='postForm-content-inputs'>
@@ -115,18 +124,21 @@ function PostForm({ titleToDisplay, imageInputName, buttonName, navigateTo }) {
                         <label htmlFor="text">votre publication</label>
                         <textarea
                             id="text"
-                            rows="20"
+                            // rows="20"
                             cols="40"
                             name="text"
                             {...register('text')}></textarea>
                     </div>
                 </div>
                 <div className='postForm-image'>
-                    {(imageUrl && PTU !== '0') &&
-                        <div>
-                            <img src={imageUrl ? imageUrl : imageURI} alt='ah, encore un pb' />
-                        </div>
-                    }
+                    {/* {((imageUrl && PTU !== '0') || imageURI) && */}
+                    {/* <div> */}
+                    <img src={imageUrl ? imageUrl : imageURI} alt={((imageUrl && PTU !== '0') || imageURI) && ""} width='100%' />
+                    {/* </div> */}
+                    {/* // } */}
+                </div>
+
+                <div className='postForm-buttons'>
                     <div className='postForm-image-button'>
                         <label htmlFor='choose-image' className='button'>{imageInputName}</label>
                         <input
@@ -138,9 +150,6 @@ function PostForm({ titleToDisplay, imageInputName, buttonName, navigateTo }) {
                         />
                         <div id='image-name'>{imageName}</div>
                     </div>
-                </div>
-
-                <div className='postForm-buttons'>
                     <Button name={buttonName} type='submit' />
                     <Button
                         name='annuler'

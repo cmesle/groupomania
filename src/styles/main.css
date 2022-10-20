@@ -3,10 +3,23 @@ main {
     width: 90%;
     max-width: 1200px;
     margin: auto;
-    padding: 50px 100px;
+    padding: 30px 100px;
     background-color: white;
 }
 
 a {
     width: 100%;
+}
+
+@media screen and (max-width:1024px) {
+    main {
+        width: 100%;
+        padding: unset;
+        margin-top: 5px;
+        margin-bottom: 50px;
+        border-radius: 10px;
+        background-color: unset;
+        font-size: small;
+
+    }
 }

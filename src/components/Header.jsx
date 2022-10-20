@@ -1,5 +1,6 @@
-import logo from '../assets/logo.avif';
+import logo from '../assets/logo.svg';
 import '../styles/header.css'
+import styles from '../styles/PostLayout.module.css'
 import Nav from "./Nav"
 
 
@@ -7,10 +8,10 @@ function Header({ userPseudo }) {
 
     return (
         <>
-            <header>
+            <header className={styles.header}>
                 <div className='top-header'>
                     <img src={logo} className="header-logo" alt="logo" />
-                    <h1>Welcome to your social network, {userPseudo}</h1>
+                    <div>Bienvenue, {userPseudo}</div>
                 </div>
                 <Nav />
             </header>

@@ -1,22 +1,31 @@
-/* colors */
 html {
   --primary: #FD2D01;
   --secondary: #FFD7D7;
-  --tertiairy: #4E5166;
+  --tertiary: #4E5166;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
+  font-family: 'Lato';
+  color: var(--tertiary);
   background-color: var(--secondary);
 }
 
 a {
   cursor: pointer;
   text-decoration: none;
-  color: var(--tertiairy);
+  color: var(--tertiary);
 }
 
 a:hover {
   color: var(--primary);
+}
+
+button {
+  cursor: pointer;
 }
 
 .App {
@@ -27,31 +36,9 @@ a:hover {
   text-align: center;
 }
 
-.App-logo {
-  /* width: 100%; */
-  /* height: 40vmin; */
-
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
+@media screen and (max-width: 1024px) {
+  .App {
+    width: 100%;
+    margin: unset;
   }
 }

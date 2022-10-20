@@ -12,9 +12,8 @@ function Signup() {
     return (
         <main>
             <h1>
-                Créer votre compte
+                <Link to='/'>déjà inscrit ? Vous connecter</Link>
             </h1>
-            <Link to='/'>déjà inscrit ? Vous connecter</Link>
             <UserForm baseURL={baseURL} buttonName={buttonName} navigateTo={navigate} />
         </main>
     )

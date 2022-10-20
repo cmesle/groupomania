@@ -1,5 +1,6 @@
 @import '../styles/App.css';
 
+
 header {
     display: flex;
     flex-direction: column;
@@ -11,7 +12,8 @@ header {
 }
 
 .header-logo {
-    width: 30%;
+    flex-shrink: 0;
+    width: 45%;
 }
 
 .top-header {
@@ -19,9 +21,28 @@ header {
     align-items: center;
 }
 
-h1 {
-    min-width: 70%;
+header div {
+    min-width: 55%;
     font-size: 16px;
     text-align: center;
     color: var(--tertiary);
+    font-weight: bold;
+}
+
+@media screen and (max-width:1024px) {
+    header {
+        width: 100%;
+        margin: unset;
+        padding-bottom: 20px;
+        border-radius: 10px;
+    }
+
+    .header-logo {
+        width: 100%;
+        object-position: -15px;
+    }
+
+    .top-header {
+        flex-direction: column;
+    }
 }

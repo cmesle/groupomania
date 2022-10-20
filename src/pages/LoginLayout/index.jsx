@@ -1,22 +1,17 @@
-import colors from "../../utils/style/colors"
-import logo from '../../assets/logo.svg'
-import styled from "styled-components"
 import { Outlet } from "react-router-dom"
 
-const StyledHeader = styled.header`
-padding: 100px;
-`
+import logo from '../../assets/logo.svg'
+
+import styles from '../../styles/LoginLayout.module.css'
+import '../../styles/userForm.css'
+
 
 function LoginLayout() {
     return (
         <>
-            <StyledHeader>
-                <h1 style={{ textAlign: 'center', fontSize: '25px', marginBottom: '25px' }}>Restons <span style={{ color: colors.primary }}>group</span>és,
-                    le facebook de </h1>
-                <div style={{ display: 'flex', placeItems: 'center', height: '80px', overflow: 'hidden' }}>
-                    <img src={logo} alt='logo Groupomnia' style={{ display: 'block', margin: '0 auto 0 auto' }} width='50%' />
-                </div>
-            </StyledHeader >
+            <header className={styles.header}>
+                <img src={logo} alt='logo Groupomnia' width='100%' />
+            </header >
 
             <Outlet />
         </>

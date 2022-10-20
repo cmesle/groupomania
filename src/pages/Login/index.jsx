@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import UserForm from '../../components/UserForm';
 import '../../styles/main.css';
 
+
 const baseURL = "http://localhost:3001/api/auth/login"
 const navigateTo = ('../gallery')
 const buttonName = "connexion"
@@ -13,9 +14,8 @@ function Login() {
   return (
     <main>
       <h1>
-        Connexion
+        <Link to='/signup'>pas encore inscrit ? Créer votre compte</Link>
       </h1>
-      <Link to='/signup'>pas encore inscrit ? Créer votre compte</Link>
       <UserForm baseURL={baseURL} buttonName={buttonName} navigateTo={navigateTo} />
     </main >
   )

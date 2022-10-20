@@ -1,0 +1,154 @@
+form {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+    border-top: 1px solid var(--tertiary);
+    border-bottom: 1px solid var(--tertiary);
+    border-radius: 10px;
+    background-color: white;
+}
+
+h1 {
+    margin: 10px 30px;
+    font-size: 100%;
+    font-weight: normal;
+}
+
+/* * {
+    border: 1px solid black;
+} */
+
+.userForm {
+    flex-direction: column;
+    align-items: center;
+}
+
+#userFormInputs-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#userFormInputs-wrapper div {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-help {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3px;
+    font-size: x-small;
+}
+
+.error-message {
+    font-size: small;
+    color: var(--primary);
+}
+
+label {
+    margin-right: 3px;
+    font-size: 100%;
+}
+
+input,
+.input,
+textarea {
+    position: relative;
+    right: 0;
+    padding: 5px;
+    border: 1px solid var(--tertiary);
+    border-radius: 5px;
+}
+
+#passwordWrapper {
+    display: flex;
+}
+
+.input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: unset;
+}
+
+.input img {
+    margin-right: 5px;
+    opacity: 50%;
+    width: 25px;
+    height: 20px;
+}
+
+.button {
+    margin-right: unset;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--secondary);
+    text-align: center;
+    font-size: smaller;
+}
+
+.button:hover {
+    color: white;
+    font-weight: bolder;
+    background-color: var(--primary);
+}
+
+@media screen and (max-width: 700px) {
+    form {
+        flex-direction: column;
+    }
+
+    h1 {
+        width: 100%;
+        margin-left: unset;
+        text-align: center;
+    }
+
+    .userForm {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    #userFormInputs-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    #userFormInputs-wrapper div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* #passwordWrapper img {
+        width: 25px;
+        object-fit: contain;
+    } */
+
+    .signup-help {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 3px;
+        font-size: x-small;
+    }
+
+    .error-message {
+        font-size: small;
+        color: var(--primary);
+    }
+
+}
+
+@media screen and (min-width: 700px) and (max-width: 900) {
+    .userFormInputs-wrapper {
+        width: 50%;
+    }
+}
