@@ -32,7 +32,7 @@ function App() {
         <Route path="" element={<PostLayout />}>
           <Route path='gallery' element={<Gallery />} />
           <Route path='newpost' element={<NewPost />} />
-          <Route path='updatePost' element={<UpdatePost />} />
+          <Route path='updatepost/:id' element={<UpdatePost />} />
           <Route path="post/:id" element={<Post />} />
           <Route path="*" element={<NoPage />} />
         </Route>
