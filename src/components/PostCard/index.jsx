@@ -18,9 +18,7 @@ function PostCard({ post }) {
     const [usersList] = useOutletContext()
     const userRole = useOutletContext()[2]
 
-    console.log(usersList)
-    console.log(usersList.filter(user => (user._id === post.userId))[0].pseudo)
-    // const author = usersList.filter(user => (user._id === post.userId))[0].pseudo
+    const author = usersList.filter(user => (user._id === post.userId))[0].pseudo
 
     const postCreationDate = new Date(post.creationDate)
         .toLocaleDateString('fr-FR')
@@ -69,7 +67,7 @@ function PostCard({ post }) {
                     <div className='post__header'>
                         <div className="post__identity">
                             <div className="post__identity__who-when">
-                                {/* <p>{author}</p> */}
+                                <p>{author}</p>
                                 <p className="post__identity__date">le {postCreationDate}</p>
                             </div>
                             <div className='post__post__title'>{post.title}</div>
