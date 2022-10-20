@@ -2,6 +2,9 @@ import React from 'react'
 import axios from "axios"
 import { useState } from "react"
 
+import thumbsUpOff from '../assets/thumbsUp-off.avif'
+import thumbsUpOn from '../assets/thumbsUp-on.avif'
+
 
 function LikePost({ post }) {
     const user = localStorage.getItem('user')
@@ -26,11 +29,12 @@ function LikePost({ post }) {
 
         await axios.post(baseURL + `/like`, requestData, requestOptions)
 
-        axios.get(baseURL, requestOptions)
+        await axios.get(baseURL, requestOptions)
             .then(res => {
                 setPostLikes(res.data.likes)
                 setAlreadyLiked(((res.data.usersLiked).findIndex(userId => userId === user)))
             })
+        console.log(alreadyLiked)
     }
 
     // const ratePost = () => {
@@ -61,9 +65,11 @@ function LikePost({ post }) {
     // }
 
     return (
-        <p className='post-rate'
+        <p className='post__rate'
             onClick={ratePost}
-        >👍<span>
+        >
+            {alreadyLiked ? <img src={thumbsUpOff} alt='' width='100%' /> : <img src={thumbsUpOn} alt='' width='100%' />}
+            <span>
                 {postLikes}
             </span></p >
     )
