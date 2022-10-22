@@ -4,16 +4,16 @@ import styles from '../styles/PostLayout.module.css'
 import Nav from "./Nav"
 
 
-function Header({ userPseudo }) {
+function Header({ userPseudo, userRole }) {
 
     return (
         <>
             <header className={styles.header}>
                 <div className='top-header'>
-                    <img src={logo} className="header-logo" alt="logo" />
+                    <img src={logo} className="header__logo" alt="logo" />
                     <div>Bienvenue, {userPseudo}</div>
                 </div>
-                <Nav />
+                <Nav userRole={userRole}/>
             </header>
         </>
     )

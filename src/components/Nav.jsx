@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useOutletContext } from 'react-router-dom'
 import axios from 'axios'
 
 import { FilterContext } from '../utils/context'
@@ -7,20 +7,25 @@ import { FilterContext } from '../utils/context'
 import '../styles/nav.css'
 import iconNew from '../assets/icon-nav/icon-new.avif'
 import iconMy from '../assets/icon-nav/icon-my.avif'
+import iconAll from '../assets/icon-nav/icon-all.avif'
 import iconOut from '../assets/icon-nav/icon-out.avif'
 
 
 
 
-function Nav() {
+function Nav({userRole}) {
+
 
     /*---------------------------------------------------------------- GETTING USER'S ROLE */
-    const userId = localStorage.getItem('user')
-    const [userRole, setUserRole] = useState()
-    useEffect(() => {
-        axios.get(`http://localhost:3001/api/auth/user/${userId}`)
-            .then(res => { setUserRole(res.data.userRole) })
-    })
+    // const userId = localStorage.getItem('user')
+
+    // const userRole = useOutletContext()
+    // console.log(userRole)
+    // const [userRole, setUserRole] = useState()
+    // useEffect(() => {
+    //     axios.get(`http://localhost:3001/api/auth/user/${userId}`)
+    //         .then(res => { setUserRole(res.data.role) })
+    // })
 
     /*------------------------------------------------------------------- NAV LINKS LOGICS */
     const handleNewClick = () => { localStorage.setItem('PTU', '0') }
@@ -50,7 +55,7 @@ function Nav() {
                             <NavLink
                                 to='gallery'
                                 onClick={handleFilterClick}>
-                                <img src={iconMy} alt="" />
+                                <img src={filter === 'allPosts' ? iconMy : iconAll} alt="" />
                                 <span>
                                     {filter === 'allPosts' ? 'mes publications' : 'toutes les publications'}
                                 </span>
