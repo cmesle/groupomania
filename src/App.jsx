@@ -11,7 +11,6 @@ import PostLayout from './pages/PostLayout';
 import Gallery from './pages/Gallery'
 import NewPost from './pages/NewPost';
 import UpdatePost from './pages/UpdatePost';
-import Post from './pages/Post';
 
 import NoPage from './pages/NoPage';
 import PrivateRoutes from './components/PrivateRoutes';
@@ -33,7 +32,6 @@ function App() {
           <Route path='gallery' element={<Gallery />} />
           <Route path='newpost' element={<NewPost />} />
           <Route path='updatepost/:id' element={<UpdatePost />} />
-          <Route path="post/:id" element={<Post />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Route>
