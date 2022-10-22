@@ -66,7 +66,7 @@
     max-height: 400px;
 }
 
-.post-content {
+.post__content {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -74,13 +74,13 @@
     width: calc(100% - var(--image-width) - 10px);
 }
 
-.post-content--open {
+.post__content--open {
     width: calc(100% - var(--open-image-width));
 }
 
 
-.post-content p,
-.post-content--open p {
+.post__content p,
+.post__content--open p {
     margin: 0;
 }
 
@@ -107,8 +107,8 @@
     font-weight: normal;
 }
 
-.post-text,
-.post-text--open {
+.post__text,
+.post__text--open {
     overflow: hidden;
     /* white-space: nowrap; */
     text-overflow: ellipsis;
@@ -116,7 +116,7 @@
     max-height: 77px;
 }
 
-.post-text--open {
+.post__text--open {
     overflow: unset;
     white-space: unset;
     text-overflow: unset;
@@ -176,7 +176,7 @@
         border-radius: 10px;
     }
 
-    .post-content--open {
+    .post__content--open {
         width: 100%;
     }
 
@@ -195,7 +195,7 @@
         margin-bottom: 5px;
     }
 
-    .post-text {
+    .post__text {
         width: 89%;
     }
 

@@ -5,7 +5,7 @@ nav {
     font-size: smaller;
 }
 
-nav>ul {
+nav ul {
     display: flex;
     justify-content: space-between;
     padding-left: 0;
@@ -46,7 +46,7 @@ nav ul li img {
         font-size: x-small;
     }
 
-    nav>ul {
+    nav ul {
         display: flex;
         justify-content: space-between;
         padding-left: 0;
@@ -66,8 +66,4 @@ nav ul li img {
         display: none;
         margin-left: -10px;
     }
-
-    /* nav ul li img {
-        height: 20px;
-    } */
 }

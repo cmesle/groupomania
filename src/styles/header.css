@@ -11,7 +11,7 @@ header {
     background-color: white;
 }
 
-.header-logo {
+.header__logo {
     flex-shrink: 0;
     width: 45%;
 }
@@ -37,7 +37,7 @@ header div {
         border-radius: 10px;
     }
 
-    .header-logo {
+    .header__logo {
         width: 100%;
         object-position: -15px;
     }

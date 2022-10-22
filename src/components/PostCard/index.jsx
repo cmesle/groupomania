@@ -44,7 +44,7 @@ function PostCard({ post }) {
     async function deletePost(e) {
         e.preventDefault()
         await axios.delete(baseURL, requestOptions)
-            .then(res => console.log(res))
+            // .then(res => console.log(res))
         await toggleRefresh()
         navigate(navigateTo)
     }
@@ -63,7 +63,7 @@ function PostCard({ post }) {
 
                 {post.imageUrl &&
                     <img className="post-card__img" src={post.imageUrl} alt='defaultPostImg' width='100%' />}
-                <div className={(openPost === 'open') && post.imageUrl ? 'post-content--open' : ((openPost === 'open') && !post.imageUrl) ? 'post-content' : 'post-content'}>
+                <div className={(openPost === 'open') && post.imageUrl ? 'post__content--open' : ((openPost === 'open') && !post.imageUrl) ? 'post__content' : 'post__content'}>
                     <div className='post__header'>
                         <div className="post__identity">
                             <div className="post__identity__who-when">
@@ -83,7 +83,7 @@ function PostCard({ post }) {
                     </div>
 
                     {post.text &&
-                        <div className={openPost === 'closed' ? 'post-text' : 'post-text--open'}>
+                        <div className={openPost === 'closed' ? 'post__text' : 'post__text--open'}>
                             {post.text}
                         </div>
                     }
