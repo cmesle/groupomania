@@ -25,10 +25,12 @@ function PostLayout() {
             .catch(err => console.log(err))
     }, [])
 
+    console.log('in PostLayout', userRole)
+
     return (
         <>
-            <Header userPseudo={userPseudo} />
-            <Outlet context={[usersList, setUsersList, userRole, setUserRole]} />
+            <Header userPseudo={userPseudo} userRole={userRole}/>
+            <Outlet context={[usersList, userRole]} />
         </>
     )
 
