@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom"
 import logo from '../../assets/logo.svg'
 
 import styles from '../../styles/LoginLayout.module.css'
-import '../../styles/userForm.css'
+import '../../styles/loginForm.css'
 
 
 function LoginLayout() {
