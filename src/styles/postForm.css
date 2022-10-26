@@ -12,7 +12,7 @@ form {
 
 h1 {
     margin: 10px 30px;
-    font-size: 16px;
+    font-size: large;
     font-weight: normal;
 }
 
@@ -86,15 +86,6 @@ textarea {
     height: 350px;
 }
 
-#passwordWrapper {
-    display: flex;
-}
-
-#passwordWrapper img {
-    margin-right: 5px;
-    opacity: 50%;
-}
-
 .input {
     display: flex;
     justify-content: space-between;
@@ -102,7 +93,7 @@ textarea {
 }
 
 .button {
-    /* width: 100%; */
+    width: 100%;
     margin-right: unset;
     padding: 5px 10px;
     border: none;
@@ -151,7 +142,8 @@ textarea {
         width: 100%;
     }
 
-    .postForm__buttons button {
+    .postForm__buttons button,
+    .button {
         width: unset;
     }
 

@@ -9,9 +9,14 @@ html {
 }
 
 body {
+  margin: 0;
   font-family: 'Lato';
   color: var(--tertiary);
   background-color: var(--secondary);
+}
+
+#root {
+  flex-grow: 1;
 }
 
 a {
