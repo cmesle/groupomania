@@ -1,9 +1,12 @@
-import axios from 'axios'
+
 import { useState, useEffect, useContext } from 'react'
+import { useOutletContext } from 'react-router-dom'
+import axios from 'axios'
 import { FilterContext, RefreshContext } from '../../utils/context'
 
 import PostCard from '../../components/PostCard'
 
+import '../../styles/gallery.css'
 
 function Gallery() {
 
@@ -11,6 +14,7 @@ function Gallery() {
     const { refresh } = useContext(RefreshContext)
     const { filter } = useContext(FilterContext)
     const user = localStorage.getItem('user')
+    const userRole = useOutletContext()[1]
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -28,29 +32,36 @@ function Gallery() {
             })
     }, [filter, refresh])
 
-    postsList.sort((a, b) => {
-        if (a.creationDate < b.creationDate) {
-            return 1
-        }
-        if (a.creationDate < b.creationDate) {
-            return -1
-        }
-        return 0
-    })
+    // postsList.sort((a, b) => {
+    //     if (a.creationDate < b.creationDate) {
+    //         return 1
+    //     }
+    //     if (a.creationDate < b.creationDate) {
+    //         return -1
+    //     }
+    //     return 0
+    // })
 
 
     return (
 
 
         <main>
-            <div className='postsContainer'>
-                {postsList.map((post) => (
-                    <PostCard
-                        key={post._id}
-                        post={post}
-                    />
-                ))}
-            </div>
+            {!postsList[0] ? (
+                (userRole === 'admin')? (
+                    <div className='postsContainer'><h1>pas encore de publication</h1></div>) : (
+                        <div className='postsContainer'><h1>un peu vide, non ? Publiez !</h1></div>
+                ))
+            : ((
+                <div className='postsContainer'>
+                    {postsList.map((post) => (
+                        <PostCard
+                            key={post._id}
+                            post={post}
+                        />
+                    ))}
+                </div>) 
+            )}
         </main >
 
     )
