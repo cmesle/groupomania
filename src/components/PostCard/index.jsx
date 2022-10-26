@@ -16,7 +16,7 @@ function PostCard({ post }) {
 
     const [openPost, setOpenPost] = useState('closed')
     const [usersList] = useOutletContext()
-    const userRole = useOutletContext()[2]
+    const userRole = useOutletContext()[1]
 
     const author = usersList.filter(user => (user._id === post.userId))[0].pseudo
 
@@ -43,11 +43,17 @@ function PostCard({ post }) {
 
     async function deletePost(e) {
         e.preventDefault()
-        await axios.delete(baseURL, requestOptions)
-            // .then(res => console.log(res))
-        await toggleRefresh()
-        navigate(navigateTo)
-    }
+
+            let text = "supprimer la publication\nsouhaitez-vous continuer ?";
+            if (window.confirm(text)) {
+                await axios.delete(baseURL, requestOptions)
+
+                await toggleRefresh()
+                navigate(navigateTo)
+            } 
+        }
+
+    
 
     const modifyPost = (e) => {
         e.preventDefault()
@@ -63,7 +69,8 @@ function PostCard({ post }) {
 
                 {post.imageUrl &&
                     <img className="post-card__img" src={post.imageUrl} alt='defaultPostImg' width='100%' />}
-                <div className={(openPost === 'open') && post.imageUrl ? 'post__content--open' : ((openPost === 'open') && !post.imageUrl) ? 'post__content' : 'post__content'}>
+
+                <div className={openPost === 'open' ? 'post__content--open' : 'post__content'}>
                     <div className='post__header'>
                         <div className="post__identity">
                             <div className="post__identity__who-when">
@@ -72,14 +79,7 @@ function PostCard({ post }) {
                             </div>
                             <div className='post__post__title'>{post.title}</div>
                         </div>
-                        <div className='post__button'>
-                            {(userRole === 'admin' || userId === post.userId) && (
-                                <>
-                                    <Button type='button' icon={iconPostModif} name='modifier' action={modifyPost} />
-                                    <Button type='button' icon={iconPostDelete} name='supprimer' action={deletePost} />
-                                </>
-                            )}
-                        </div>
+
                     </div>
 
                     {post.text &&
@@ -91,6 +91,14 @@ function PostCard({ post }) {
                 </div>
             </div>
 
+            <div className='post__button'>
+                {(userRole === 'admin' || userId === post.userId) && (
+                    <>
+                        <Button type='button' icon={iconPostModif} name='modifier' action={modifyPost} />
+                        <Button type='button' icon={iconPostDelete} name='supprimer' action={deletePost} />
+                    </>
+                )}
+            </div>
 
             {userRole !== 'admin' &&
                 <LikePost post={post} />
