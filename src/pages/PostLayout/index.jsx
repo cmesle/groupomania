@@ -5,27 +5,29 @@ import Header from "../../components/Header";
 import React from "react";
 
 import '../../styles/header.css'
-import styles from '../../styles/PostLayout.module.css'
+import '../../styles/PostLayout.module.css'
 
 function PostLayout() {
-    localStorage.setItem('PTU', '0')
+    localStorage.setItem('PTU', '0')                    //initialising PTU = Post To Update
+    
     const userId = localStorage.getItem('user')
-    /* getting the user's pseudo */
     const [usersList, setUsersList] = useState()
     const [userPseudo, setUserPseudo] = useState()
     const [userRole, setUserRole] = useState()
 
     useEffect(() => {
-        axios.get('http://localhost:3001/api/auth/user')
-            .then(res => {
-                setUsersList(res.data)
-                setUserPseudo(res.data.filter(users => users._id === userId)[0].pseudo)
-                setUserRole(res.data.filter(users => users._id === userId)[0].role)
-            })
-            .catch(err => console.log(err))
+        async function getAllUSers() {
+            await axios.get('http://localhost:3001/api/auth/user')
+                .then(res => {
+                    setUsersList(res.data)
+                    setUserPseudo(res.data.filter(users => users._id === userId)[0].pseudo)
+                    setUserRole(res.data.filter(users => users._id === userId)[0].role)
+                })
+                .catch(err => console.log(err))
+        }
+        getAllUSers()
     }, [])
 
-    console.log('in PostLayout', userRole)
 
     return (
         <>
