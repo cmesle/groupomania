@@ -46,7 +46,7 @@ function Nav({userRole}) {
                             <NavLink
                                 to='newpost'
                                 onClick={handleNewClick}>
-                                <img src={iconNew} alt="" />
+                                <img src={iconNew} alt="icone navigation : nouvelle publication" />
                                 <span>nouvelle publication</span>
                             </NavLink>
                         </li>
@@ -55,7 +55,10 @@ function Nav({userRole}) {
                             <NavLink
                                 to='gallery'
                                 onClick={handleFilterClick}>
-                                <img src={filter === 'allPosts' ? iconMy : iconAll} alt="" />
+                                    {filter === 'allPosts' ? 
+                                    <img src={iconMy} alt='icone navigation : mes publications'/> : 
+                                    <img src={iconAll} alt='icone navigation : toutes les publications'/> 
+                                    }
                                 <span>
                                     {filter === 'allPosts' ? 'mes publications' : 'toutes les publications'}
                                 </span>
