@@ -1,19 +1,21 @@
-import React from 'react';
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import './styles/App.css';
-/* login components */
-import LoginLayout from './pages/LoginLayout';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
-/* posts components */
-import PostLayout from './pages/PostLayout';
-import Gallery from './pages/Gallery'
-import NewPost from './pages/NewPost';
-import UpdatePost from './pages/UpdatePost';
+import './styles/App.css'
 
-import NoPage from './pages/NoPage';
-import PrivateRoutes from './components/PrivateRoutes';
+import PrivateRoutes from './components/PrivateRoutes'
+/* login components */
+import LoginLayout from './pages/LoginLayout'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
+/* posts components */
+import PostLayout from './pages/PostLayout'
+import Gallery from './pages/Gallery'
+import NewPost from './pages/NewPost'
+import UpdatePost from './pages/UpdatePost'
+
+import NoPage from './pages/NoPage'
+
 
 
 
