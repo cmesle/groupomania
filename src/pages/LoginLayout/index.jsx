@@ -2,14 +2,13 @@ import { Outlet } from "react-router-dom"
 
 import logo from '../../assets/logo.svg'
 
-import styles from '../../styles/LoginLayout.module.css'
-import '../../styles/loginForm.css'
+import './LoginLayout.css'
 
 
 function LoginLayout() {
     return (
         <>
-            <header className={styles.header}>
+            <header className='login-layout__header'>
                 <img src={logo} alt='logo Groupomnia' width='100%' />
             </header >
 

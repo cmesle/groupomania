@@ -10,9 +10,8 @@ const buttonName = 'créer mon compte'
 function Signup() {
     return (
         <main>
-            <h1>
-                <Link to="/">déjà inscrit ? Vous connecter</Link>
-            </h1>
+            <Link className="toggleForm" to="/">déjà inscrit ? Vous connecter</Link>
+
             <LoginForm
                 baseURL={baseURL}
                 buttonName={buttonName}

@@ -6,7 +6,7 @@ import { FilterContext, RefreshContext } from '../../utils/context'
 
 import PostCard from '../../components/PostCard'
 
-import '../../styles/gallery.css'
+import './gallery.css'
 
 function Gallery() {
 
@@ -14,7 +14,7 @@ function Gallery() {
     const { refresh } = useContext(RefreshContext)
     const { filter } = useContext(FilterContext)
     const user = localStorage.getItem('user')
-    const userRole = useOutletContext()[1]
+    const { userRole } = useOutletContext()
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -31,16 +31,6 @@ function Gallery() {
                 ) : (setPostsList(res.data))
             })
     }, [filter, refresh])
-
-    // postsList.sort((a, b) => {
-    //     if (a.creationDate < b.creationDate) {
-    //         return 1
-    //     }
-    //     if (a.creationDate < b.creationDate) {
-    //         return -1
-    //     }
-    //     return 0
-    // })
 
 
     return (

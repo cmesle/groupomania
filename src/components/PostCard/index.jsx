@@ -3,21 +3,21 @@ import { useOutletContext } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
-import Button from "../Button"
+import Button from "../Button/Button"
 import LikePost from "../LikePost"
 
 import { RefreshContext } from '../../utils/context'
-import '../../styles/gallery.css'
+import './PostCard.css'
 
 import iconPostModif from '../../assets/icon-post-modif.avif'
-import iconPostDelete from '../../assets/icon-post-del.avif'
+import iconPostDelete from '../../assets/icon-del.avif'
 
 function PostCard({ post }) {
 
     const [openPost, setOpenPost] = useState('closed')
-    const [usersList] = useOutletContext()
-    const userRole = useOutletContext()[1]
-
+    const {usersList} = useOutletContext()
+    const {userRole} = useOutletContext()
+console.log(usersList)
     const author = usersList.filter(user => (user._id === post.userId))[0].pseudo
 
     const postCreationDate = new Date(post.creationDate)
@@ -44,16 +44,14 @@ function PostCard({ post }) {
     async function deletePost(e) {
         e.preventDefault()
 
-            let text = "supprimer la publication\nsouhaitez-vous continuer ?";
-            if (window.confirm(text)) {
-                await axios.delete(baseURL, requestOptions)
+        let text = "supprimer la publication\nsouhaitez-vous continuer ?";
+        if (window.confirm(text)) {
+            await axios.delete(baseURL, requestOptions)
 
-                await toggleRefresh()
-                navigate(navigateTo)
-            } 
-        }
-
-    
+            await toggleRefresh()
+            navigate(navigateTo)
+        } 
+    }
 
     const modifyPost = (e) => {
         e.preventDefault()
@@ -68,8 +66,10 @@ function PostCard({ post }) {
                 onClick={handleOpenPost}>
 
                 {post.imageUrl &&
-                    <img className="post-card__img" src={post.imageUrl} alt='defaultPostImg' width='100%' />}
-
+                // <div id="post-card__imgContainer">
+                    <img className="post-card__img" src={post.imageUrl} alt='defaultPostImg' width='100%' />
+                    // </div>
+}
                 <div className={openPost === 'open' ? 'post__content--open' : 'post__content'}>
                     <div className='post__header'>
                         <div className="post__identity">
@@ -77,9 +77,8 @@ function PostCard({ post }) {
                                 <p>{author}</p>
                                 <p className="post__identity__date">le {postCreationDate}</p>
                             </div>
-                            <div className='post__post__title'>{post.title}</div>
+                            <div className='post__identity__title'>{post.title}</div>
                         </div>
-
                     </div>
 
                     {post.text &&
@@ -87,7 +86,6 @@ function PostCard({ post }) {
                             {post.text}
                         </div>
                     }
-
                 </div>
             </div>
 

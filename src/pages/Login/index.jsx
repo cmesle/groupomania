@@ -11,11 +11,10 @@ const buttonName = 'connexion'
 function Login() {
     return (
         <main>
-            <h1>
-                <Link to="/signup">
-                    pas encore inscrit ? Créer votre compte
-                </Link>
-            </h1>
+            <Link className="toggleForm" to="/signup">
+                pas encore inscrit ? Créer votre compte
+            </Link>
+
             <LoginForm
                 baseURL={baseURL}
                 buttonName={buttonName}
