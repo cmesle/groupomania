@@ -4,7 +4,7 @@
 import axios from 'axios'
 
 // import Button from '../../components/Button';
-import '../../styles/App.css';
+// import '../../styles/App.css'
 import PostForm from '../../components/PostForm';
 import { useEffect } from 'react';
 
@@ -25,7 +25,6 @@ function UpdatePost() {
     }, [])
     return <PostForm
         titleToDisplay='Modifier votre publication'
-        imageInputName="modifier l'image"
         buttonName='enregistrer'
         navigateTo={'../../gallery'} />
 }
