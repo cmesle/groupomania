@@ -1,0 +1,25 @@
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--secondary);
+    font-family: 'Lato';
+    font-size: small;
+    color: var(--tertiary);
+}
+
+button:hover {    
+    color: white;
+    font-weight: bolder;
+    background-color: var(--primary);
+}
+
+button .disabled:hover {
+    color: unset;
+    font-weight: unset;
+    background-color: unset;
+
+}
