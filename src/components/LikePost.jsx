@@ -16,7 +16,7 @@ function LikePost({ post }) {
     }
     const [alreadyLiked, setAlreadyLiked] = useState(((post.usersLiked).findIndex(userId => userId === user)))
 
-    async function ratePost() {
+    async function likePost() {
         const requestData = {
             'userId': user,
             'like': ''
@@ -38,8 +38,8 @@ function LikePost({ post }) {
 
 
     return (
-        <p className='post__rate'
-            onClick={ratePost}
+        <p className='post__like'
+            onClick={likePost}
         >
             {(alreadyLiked === -1) ? <img src={thumbsUpOff} alt='' width='100%' /> : <img src={thumbsUpOn} alt='' width='100%' />}
             <span>
