@@ -28,10 +28,11 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
             'Authorization': 'Bearer ' + token
         }
     }
-    const { register, handleSubmit, reset } = useForm({
+    const { register, handleSubmit, reset, formState } = useForm({
         title: '',
         text: ''
     })
+    const { isDirty } = formState
     const { userRole } = useOutletContext()
 
     useEffect(() => {
@@ -63,9 +64,8 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
     }, [PTU])
 
     /*----------------------------------------------------------------------- IMAGE UPLOAD */
-    // const [image, setImage] = useState()
-    const [imageURI, setImageURI] = useState()
 
+    const [imageURI, setImageURI] = useState()
     const readURI = (e) => {
         if (e.target.files && e.target.files[0]) {
             let reader = new FileReader();
@@ -77,11 +77,8 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
     }
 
     const handleImageChange = (e) => {
-        // readURI(e)
-
+        readURI(e)
         setImageUrl(e.target.files[0])
-        // setImageUrl(image)
-
     }
 
     const handleDeleteImage = (e) => {
@@ -94,18 +91,22 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
         localStorage.setItem('PTU', '0')
         navigate(navigateTo)
     }
-// console.log('image', image)
-console.log('imageUrl ',imageUrl)
+
 
     async function onSubmit(data) {
         data = { ...data, imageUrl, userRole }
-        if (PTULocal === '0') {
-            await axios.post(baseURL, data, requestOptions)
-        } else {
-            await axios.put(baseURL + '/' + PTU, data, requestOptions)
+
+        if (!isDirty && !imageUrl) {
+            alert("Votre publication est vide")
+        } else {        
+             if (PTULocal === '0') {
+                await axios.post(baseURL, data, requestOptions)
+            } else {
+                await axios.put(baseURL + '/' + PTU, data, requestOptions)
+            }
+            toggleRefresh()
+            navigate(navigateTo)
         }
-        toggleRefresh()
-        navigate(navigateTo)
     }
 
 
@@ -138,7 +139,9 @@ console.log('imageUrl ',imageUrl)
 
                 <div id='postForm__buttons'>
                     <div id='postForm__image-button'>
-                        <label htmlFor='choose-image' className='button'>{(imageUrl||imageURI) ? "modifier l'image" : "ajouter une image"}</label>
+                        <label htmlFor='choose-image' role="button" className='button'>
+                            {(imageUrl||imageURI) ? "modifier l'image" : "ajouter une image"}
+                        </label>
                         <input
                             id='choose-image'
                             style={{ display: 'none' }}
@@ -165,7 +168,6 @@ console.log('imageUrl ',imageUrl)
                 <div id='postForm__image'>
                     <img src={imageUrl ? imageUrl : imageURI} alt={((imageUrl && PTU !== '0') || imageURI) && ""} width='100%' />
                 </div>
-
             </form>
         </main >
     )
