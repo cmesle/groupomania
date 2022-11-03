@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-
 import axios from 'axios'
 
+import { pseudoRegex, emailRegex, passwordRegex } from '../../utils/regex'
+
 import Button from '../Button/Button'
-// import '../styles/App.css'
-import './loginForm.css'
 import eye_icon from '../../assets/eye_icon.png'
 
-import { pseudoRegex, emailRegex, passwordRegex } from '../../utils/regex'
+import './loginForm.css'
+
 
 function LoginForm({ baseURL, buttonName, navigateTo }) {
     const [showPassword, setShowPassword] = useState('show')
@@ -20,11 +20,12 @@ function LoginForm({ baseURL, buttonName, navigateTo }) {
     const navigate = useNavigate()
     const { register, handleSubmit, formState } = useForm({
         defaultValues: {pseudo:'', email:'', password:''},
-        mode: 'onChange'
+        mode: 'onBlur',
+        // reValidateMode: 'onBlur'
     })
-    const { errors } = formState
+    const { errors, isSubmitSuccessful } = formState
 
-const [formError, setFormmError] = useState()
+    const [formError, setFormError] = useState()
 
     async function onSubmit(data) {
         const user = (user, token) => {
@@ -34,7 +35,7 @@ const [formError, setFormmError] = useState()
         await axios
             .post(baseURL, data)
             .then((res) => {user(res.data.userId, res.data.token)})
-            .catch(setFormmError('vérifiez vos informations, ou créez votre compte'))
+            .catch(setFormError('vérifiez vos informations, ou créez votre compte'))
 
         navigate(navigateTo)
     }
@@ -48,6 +49,7 @@ const [formError, setFormmError] = useState()
                         <input
                             type="text"
                             name="pseudo"
+                            aria-invalid={errors.pseudo ? 'true' : 'false'}
                             {...register('pseudo', {
                                 required: true,
                                 pattern: {
@@ -116,6 +118,7 @@ const [formError, setFormmError] = useState()
                                 name="password"
                                 size="25"
                                 style={{ border: 'none' }}
+                                aria-invalid={errors.password ? 'true' : 'false'}
                                 {...register('password', {
                                     required: true,
                                     pattern: {
@@ -148,7 +151,7 @@ const [formError, setFormmError] = useState()
                     )}
                 </div>
             </div>
-                <div className='error-message'>{formError}</div>
+            <div role="alert" className='error-message'>{!isSubmitSuccessful && formError}</div>
             <Button name={buttonName} type="submit" />
         </form>
     )
