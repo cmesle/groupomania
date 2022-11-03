@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
-import { Outlet } from "react-router-dom";
-import axios from 'axios';
-import Header from "../../components/Header";
-import React from "react";
+import { Outlet } from "react-router-dom"
+import axios from 'axios'
 
-import '../../styles/header.css'
-import '../../styles/PostLayout.module.css'
+// import React from "react"
+import Header from "../../components/Header"
+
+import './PostLayout.css'
+
 
 function PostLayout() {
-    localStorage.setItem('PTU', '0')                    //initialising PTU = Post To Update
+    
+    localStorage.setItem('PTU', '')                    //initialising PTU = Post To Update
     
     const userId = localStorage.getItem('user')
     const [usersList, setUsersList] = useState()
@@ -16,7 +18,7 @@ function PostLayout() {
     const [userRole, setUserRole] = useState()
 
     useEffect(() => {
-        async function getAllUSers() {
+        async function getAllUsers() {
             await axios.get('http://localhost:3001/api/auth/user')
                 .then(res => {
                     setUsersList(res.data)
@@ -25,14 +27,14 @@ function PostLayout() {
                 })
                 .catch(err => console.log(err))
         }
-        getAllUSers()
+        getAllUsers()
     }, [])
 
 
     return (
         <>
             <Header userPseudo={userPseudo} userRole={userRole}/>
-            <Outlet context={[usersList, userRole]} />
+            <Outlet context={{usersList, userRole}} />
         </>
     )
 

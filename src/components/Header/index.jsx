@@ -1,7 +1,6 @@
-import logo from '../../assets/logo.svg';
 import './header.css'
-// import '../styles/PostLayout.css'
 import Nav from "../Nav"
+import logo from '../../assets/logo.svg';
 
 
 function Header({ userPseudo, userRole }) {

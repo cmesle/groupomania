@@ -3,13 +3,12 @@ import { NavLink } from 'react-router-dom'
 
 import { FilterContext } from '../../utils/context'
 
-import './Nav.css'
 import iconNew from '../../assets/icon-nav/icon-new.avif'
 import iconMy from '../../assets/icon-nav/icon-my.avif'
 import iconAll from '../../assets/icon-nav/icon-all.avif'
 import iconOut from '../../assets/icon-nav/icon-out.avif'
 
-
+import './Nav.css'
 
 
 function Nav({userRole}) {

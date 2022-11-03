@@ -38,13 +38,12 @@ function LikePost({ post }) {
 
 
     return (
-        <p className='post__like'
-            onClick={likePost}
-        >
+        <p className='post__like' onClick={likePost}>
             {(alreadyLiked === -1) ? <img src={thumbsUpOff} alt='' width='100%' /> : <img src={thumbsUpOn} alt='' width='100%' />}
             <span>
                 {postLikes}
-            </span></p >
+            </span>
+        </p >
     )
 }
 

@@ -17,7 +17,7 @@ function PostCard({ post }) {
     const [openPost, setOpenPost] = useState('closed')
     const {usersList} = useOutletContext()
     const {userRole} = useOutletContext()
-console.log(usersList)
+
     const author = usersList.filter(user => (user._id === post.userId))[0].pseudo
 
     const postCreationDate = new Date(post.creationDate)
@@ -61,15 +61,13 @@ console.log(usersList)
 
     return (
         <div className={openPost === 'closed' ? 'post-card' : 'post-card--open'}>
-            <div
-                className={openPost === 'closed' ? 'post-card__clickable' : 'post-card__clickable--open'}
-                onClick={handleOpenPost}>
+            <div className={openPost === 'closed' ? 'post-card__clickable' : 'post-card__clickable--open'}
+                 onClick={handleOpenPost}>
 
                 {post.imageUrl &&
-                // <div id="post-card__imgContainer">
                     <img className="post-card__img" src={post.imageUrl} alt='defaultPostImg' width='100%' />
-                    // </div>
-}
+                }
+
                 <div className={openPost === 'open' ? 'post__content--open' : 'post__content'}>
                     <div className='post__header'>
                         <div className="post__identity">
