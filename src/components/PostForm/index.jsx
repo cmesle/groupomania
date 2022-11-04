@@ -13,13 +13,10 @@ import './postForm.css'
 
 function PostForm({ titleToDisplay, buttonName, navigateTo }) {
 
-    // const PTU = localStorage.getItem('PTU')
-    // const params = useParams()
-    const PTU = useParams().id
-    const PTULocal = localStorage.getItem('PTU')
-           // console.log(PTU)
+    const PTU = useParams().id                              // PTU = PostToUpdate
     const token = localStorage.getItem('token')
     const { toggleRefresh } = useContext(RefreshContext)
+    const { userRole } = useOutletContext()
     const [imageUrl, setImageUrl] = useState()
     const baseURL = 'http://localhost:3001/api/post'
     const requestOptions = {
@@ -33,17 +30,18 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
         text: ''
     })
     const { isDirty } = formState
-    const { userRole } = useOutletContext()
 
+
+    /*----------------------------------------------------getting post's data to update if update */
     useEffect(() => {
 
-        if (PTULocal === '0') {
+        if (!PTU) {
             reset({
                 title: '',
                 text: ''
             })
         } else {
-            axios.get(baseURL + '/' + PTULocal, requestOptions)
+            axios.get(baseURL + '/' + PTU, requestOptions)
                 .then((res) => {
                     if (!res.data.imageUrl) {
                         reset({
@@ -82,7 +80,6 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
     }
 
     const handleDeleteImage = (e) => {
-        // setImage(null)
         setImageUrl(undefined)
     }
     const navigate = useNavigate()
@@ -99,7 +96,7 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
         if (!isDirty && !imageUrl) {
             alert("Votre publication est vide")
         } else {        
-             if (PTULocal === '0') {
+             if (!PTU) {
                 await axios.post(baseURL, data, requestOptions)
             } else {
                 await axios.put(baseURL + '/' + PTU, data, requestOptions)

@@ -54,8 +54,6 @@ function PostCard({ post }) {
     }
 
     const modifyPost = (e) => {
-        e.preventDefault()
-        localStorage.setItem('PTU', post._id)
         navigate(`../updatepost/${post._id}`)
     }
 
