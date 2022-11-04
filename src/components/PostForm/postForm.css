@@ -1,6 +1,7 @@
 #postForm {
     display: grid;
     grid-template-rows: 20px 27px 20px 80%;
+    grid-template-columns: 40% 55%;
     column-gap: 20px;
 }
 
@@ -27,13 +28,14 @@
 #postForm__buttons {
     grid-area: 2/2;
     display: grid;
-    grid-template-columns: 38% 28% 28%;
+    grid-template-columns: max-content max-content max-content;
     justify-content: space-between;
+    justify-items: right;
 }
 
     #postForm__image-button {
         display: grid;
-        grid-template-columns: 77% 20%;
+        grid-template-columns: max-content max-content;
     }
 
         #postForm__image-button img {
@@ -45,9 +47,10 @@
         justify-content: center;
         align-items: center;
         margin-right: unset;
-        padding: 5px 10px;
+        width: max-content;
+        padding: 5px 15px;
         border: none;
-        border-radius: 5px;
+        border-radius: 15px;
         background-color: var(--secondary);
         font-size: small;
     }
@@ -59,7 +62,7 @@
     }
 
     #postForm__buttons button {
-        margin-left: 10px;
+        /* margin-left: 10px; */
     }
 
 #postForm__image {
@@ -81,13 +84,14 @@
         }
 
         #postForm__buttons {
+            justify-content: space-around;
             margin: 10px 0;
-            grid-template-columns: 48% 27% 22%;
+            /* grid-template-columns: 48% 27% 22%; */
         }
 
             #postForm__image-button {
                 display: grid;
-                grid-template-columns: 80% 20%;
+                /* grid-template-columns: 80% 20%; */
             }
 
         #postForm__image {
