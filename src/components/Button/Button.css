@@ -18,10 +18,3 @@ button:hover {
     font-weight: bolder;
     background-color: var(--primary);
 }
-
-button .disabled:hover {
-    color: unset;
-    font-weight: unset;
-    background-color: unset;
-
-}

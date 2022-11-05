@@ -1,6 +1,7 @@
-import './header.css'
 import Nav from "../Nav"
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/logo.svg'
+
+import './header.css'
 
 
 function Header({ userPseudo, userRole }) {

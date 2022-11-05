@@ -76,9 +76,14 @@
         text-align: center;
     }
 }
+
+@media screen and (min-width: 700px) and (max-width: 1000px) {
+    #LoginFormInputs__wrapper {
+        width: 50%;
+    }
+}
+
 @media screen and (max-width: 768px) {
-
-
     #LoginForm {
         flex-direction: column;
         align-items: center;
@@ -96,11 +101,4 @@
                 display: flex;
                 flex-direction: column;
             }
-
-}
-
-@media screen and (min-width: 700px) and (max-width: 1000px) {
-    #LoginFormInputs__wrapper {
-        width: 50%;
-    }
 }

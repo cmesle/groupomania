@@ -163,10 +163,8 @@
 
 
 @media screen and (max-width: 768px) {
-
-
         .post-card__clickable {
-            max-height: 130px;
+            max-height: unset;
         }
 
         .post-card__clickable,
@@ -243,11 +241,5 @@
             width: 15px;
             margin-right: 3px;
             border-radius: 0;
-        }
-}
-
-@media screen and (max-width: 768px) {
-        .post-card__clickable {
-            max-height: unset;
         }
 }

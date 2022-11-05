@@ -21,7 +21,6 @@ function LoginForm({ baseURL, buttonName, navigateTo }) {
     const { register, handleSubmit, formState } = useForm({
         defaultValues: {pseudo:'', email:'', password:''},
         mode: 'onBlur',
-        // reValidateMode: 'onBlur'
     })
     const { errors, isSubmitSuccessful } = formState
 

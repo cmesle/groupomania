@@ -61,10 +61,6 @@
         background-color: var(--primary);
     }
 
-    #postForm__buttons button {
-        /* margin-left: 10px; */
-    }
-
 #postForm__image {
     grid-area: 4 / 2;
     max-height: 300px;
@@ -86,12 +82,10 @@
         #postForm__buttons {
             justify-content: space-around;
             margin: 10px 0;
-            /* grid-template-columns: 48% 27% 22%; */
         }
 
             #postForm__image-button {
                 display: grid;
-                /* grid-template-columns: 80% 20%; */
             }
 
         #postForm__image {

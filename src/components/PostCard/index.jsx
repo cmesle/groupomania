@@ -44,7 +44,7 @@ function PostCard({ post }) {
     async function deletePost(e) {
         e.preventDefault()
 
-        let text = "supprimer la publication\nsouhaitez-vous continuer ?";
+        let text = "supprimer la publication\nsouhaitez-vous continuer ?"
         if (window.confirm(text)) {
             await axios.delete(baseURL, requestOptions)
 
