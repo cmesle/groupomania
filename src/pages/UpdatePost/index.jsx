@@ -1,12 +1,7 @@
-// import { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
-// import { useForm } from 'react-hook-form';
+import { useEffect } from 'react'
 import axios from 'axios'
 
-// import Button from '../../components/Button';
-// import '../../styles/App.css'
-import PostForm from '../../components/PostForm';
-import { useEffect } from 'react';
+import PostForm from '../../components/PostForm'
 
 
 function UpdatePost() {
