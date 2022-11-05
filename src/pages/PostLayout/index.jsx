@@ -2,15 +2,12 @@ import { useState, useEffect } from 'react'
 import { Outlet } from "react-router-dom"
 import axios from 'axios'
 
-// import React from "react"
 import Header from "../../components/Header"
 
 import './PostLayout.css'
 
 
 function PostLayout() {
-    
-    localStorage.setItem('PTU', '')                    //initialising PTU = Post To Update
     
     const userId = localStorage.getItem('user')
     const [usersList, setUsersList] = useState()
