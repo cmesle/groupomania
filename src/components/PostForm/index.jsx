@@ -26,8 +26,7 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
         }
     }
     const { register, handleSubmit, reset, formState } = useForm({
-        title: '',
-        text: ''
+        defaultValues : {title: '', text: ''}
     })
     const { isDirty } = formState
 
@@ -61,34 +60,26 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
         }
     }, [PTU])
 
-    /*----------------------------------------------------------------------- IMAGE UPLOAD */
 
-    const [imageURI, setImageURI] = useState()
-    const readURI = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            let reader = new FileReader();
-            reader.onload = function (ev) {
-                setImageURI(ev.target.result)
-            }
-            reader.readAsDataURL(e.target.files[0])
+    /*---------------------------------------------------------------------------- Buttons logics */
+    const handleImageChange = (e)=> {
+        if(e.target.files.length > 0){
+            setImageUrl(URL.createObjectURL(e.target.files[0]))
         }
     }
 
-    const handleImageChange = (e) => {
-        readURI(e)
-        setImageUrl(e.target.files[0])
+    const handleDeleteImage = (e) => {
+        setImageUrl('')
     }
 
-    const handleDeleteImage = (e) => {
-        setImageUrl(undefined)
-    }
     const navigate = useNavigate()
     const handleCancel = (e) => {
         e.preventDefault()
-        localStorage.setItem('PTU', '0')
         navigate(navigateTo)
     }
 
+
+    console.log('imageUrl ',imageUrl)
 
     async function onSubmit(data) {
         data = { ...data, imageUrl, userRole }
@@ -137,7 +128,7 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
                 <div id='postForm__buttons'>
                     <div id='postForm__image-button'>
                         <label htmlFor='choose-image' role="button" className='button'>
-                            {(imageUrl||imageURI) ? "modifier l'image" : "ajouter une image"}
+                            {(imageUrl) ? "modifier l'image" : "ajouter une image"}
                         </label>
                         <input
                             id='choose-image'
@@ -146,7 +137,7 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
                             accept="image/*"
                             onChange={handleImageChange}
                         />
-                        {(imageUrl || imageURI) &&
+                        {(imageUrl) &&
                                 <Button 
                                     className='test'
                                     type='button'
@@ -163,7 +154,9 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
                 </div>
 
                 <div id='postForm__image'>
-                    <img src={imageUrl ? imageUrl : imageURI} alt={((imageUrl && PTU !== '0') || imageURI) && ""} width='100%' />
+                    {imageUrl &&
+                        <img src={imageUrl} alt="votre sélection" width='100%' />
+                    }
                 </div>
             </form>
         </main >
