@@ -1,13 +1,12 @@
-import { useState, useEffect, useContext } from 'react';
-import { useNavigate, useParams, useOutletContext } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import { useState, useEffect, useContext } from 'react'
+import { useNavigate, useParams, useOutletContext } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import axios from 'axios'
 
 import { RefreshContext } from '../../utils/context'
-import Button from '../Button/Button';
+import Button from '../Button/Button'
 import iconDel from '../../assets/icon-del.avif'
 import './postForm.css'
-
 
 
 
@@ -33,7 +32,6 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
 
     /*----------------------------------------------------getting post's data to update if update */
     useEffect(() => {
-
         if (!PTU) {
             reset({
                 title: '',
@@ -55,21 +53,28 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
                         })
                         setImageUrl(res.data.imageUrl)
                     }
-
                 })
         }
     }, [PTU])
 
 
     /*---------------------------------------------------------------------------- Buttons logics */
+    const [imageURI, setImageURI] = useState()
+    const [imageChange, setImageChange] = useState(false)
+    const [imageDelete, setImageDelete] = useState(false)
+
     const handleImageChange = (e)=> {
         if(e.target.files.length > 0){
-            setImageUrl(URL.createObjectURL(e.target.files[0]))
+            setImageURI(URL.createObjectURL(e.target.files[0]))
+            setImageUrl(e.target.files[0])
+            setImageChange(true)
         }
     }
 
     const handleDeleteImage = (e) => {
         setImageUrl('')
+        setImageURI('')
+        setImageDelete(true)
     }
 
     const navigate = useNavigate()
@@ -79,14 +84,11 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
     }
 
 
-    console.log('imageUrl ',imageUrl)
 
-    async function onSubmit(data) {
+    const onSubmit = (data) => {
         data = { ...data, imageUrl, userRole }
 
-        if (!isDirty && !imageUrl) {
-            alert("Votre publication est vide")
-        } else {        
+        async function post() {
              if (!PTU) {
                 await axios.post(baseURL, data, requestOptions)
             } else {
@@ -94,6 +96,14 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
             }
             toggleRefresh()
             navigate(navigateTo)
+        }
+
+        if (data.title==='' && data.text==='' && !imageUrl) {
+            alert("Votre publication est vide")
+        } else if (!isDirty && imageChange===false && imageDelete===false) {
+            alert('Aucune modification')
+        } else {        
+            post()
         }
     }
 
@@ -154,9 +164,7 @@ function PostForm({ titleToDisplay, buttonName, navigateTo }) {
                 </div>
 
                 <div id='postForm__image'>
-                    {imageUrl &&
-                        <img src={imageUrl} alt="votre sélection" width='100%' />
-                    }
+                        <img src={imageURI ? imageURI : imageUrl} alt={(!imageURI || !imageUrl) ? "" : "votre sélection"} width='100%' />
                 </div>
             </form>
         </main >
